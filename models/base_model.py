@@ -18,3 +18,9 @@ class BaseModel:
         self.id = str(uuid4)
         self.created_at = datetime.now()
         self.updated_at = datetime.now()
+
+    def __str__():
+        """
+        return a string representation
+        """
+        return (f"[{__classname__}] ({self.id}) {self.__dict__}")

@@ -1,4 +1,4 @@
-<img src="https://user-images.githubusercontent.com/69850751/175875342-9b891ca8-5441-43f0-bffc-2c211c820f97.png" />
+<img src="https://user-images.githubusercontent.com/69850751/175876062-f252cc1b-bd44-46b3-9ddb-a7692b2eede4.png" />
 # Welcome to the AirBnB clone project!
 
 ## Language

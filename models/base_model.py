@@ -13,11 +13,14 @@ class BaseModel:
     """
     clase base para todos los modelos
     """
-    def __init__(self):
+    def __init__(self, *args, **kwargs)
         """initialization"""
         self.id = str(uuid4())
         self.created_at = datetime.now()
-        self.updated_at = datetime.now()
+        self.updated_at = self.created_at
+        
+        # if kwargs is not None and len(kwargs):
+        #     print(print("{} - {}".format(args, kwargs)))
 
     def __str__(self):
         """

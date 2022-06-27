@@ -44,16 +44,13 @@ git clone https://github.com/sanei1509/holbertonschool-AirBnB_clone.git
 ### 3 - Execute the console
 ````
 ./console.py
-````
-
-you should see the following prompt waiting for your commands
-````
 (hbnb)
 ````
+you should see the following prompt waiting for your commands
 
 ## Non interactive mode
 
-````
+````c
 $ echo "help" | ./console.py
 (hbnb)
 
@@ -77,7 +74,7 @@ $
 
 
 ## Interactive Mode
-````
+````c
 $ ./console.py
 (hbnb) help
 
@@ -108,7 +105,26 @@ General
 
 
 # Testing
+we must run the tests in interactive and non-interactive mode
 
+| Non interactive mode
+````c
+echo "python3 -m unittest discover tests" | bash
+````
+
+| Interactive mode
+````c
+python3 -m unittest discover tests"
+````
+
+# Ejemplos de uso de **Comandos**
+
+## 1 - Create
+````
+(hbnb) create [class] ?
+````
+
+## 2 - other
 
 
 # Authors contact

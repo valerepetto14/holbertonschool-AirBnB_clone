@@ -32,6 +32,7 @@ class BaseModel:
     def to_dict(self):
         """return a dictionary with methods/attr"""
         diccio = self.__dict__.copy()
+        diccio["__class__"] = BaseModel.__name__
         diccio["updated_at"] = self.updated_at.isoformat()
         diccio["created_at"] = self.updated_at.isoformat()
         return diccio

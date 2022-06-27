@@ -15,12 +15,23 @@ class BaseModel:
     """
     def __init__(self):
         """initialization"""
-        self.id = str(uuid4)
+        self.id = str(uuid4())
         self.created_at = datetime.now()
         self.updated_at = datetime.now()
 
-    def __str__():
+    def __str__(self):
         """
-        return a string representation
+        return a string representationddd
         """
-        return (f"[{__classname__}] ({self.id}) {self.__dict__}")
+        return (f"[{__class__}] ({self.id}) {self.__dict__}")
+
+    def save(self):
+        """method save"""
+        self.updated_at = datetime.now()
+
+    def to_dict(self):
+        """return a dictionary with methods/attr"""
+        diccio = self.__dict__.copy()
+        diccio["updated_at"] = self.updated_at.isoformat()
+        diccio["created_at"] = self.updated_at.isoformat()
+        return diccio

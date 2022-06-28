@@ -36,6 +36,13 @@ class test_base_model(unittest.TestCase):
         """test date"""
         obj1 = BaseModel()
         self.assertEqual(obj1.created_at, obj1.updated_at)
+
+    def test_BaseModel_format_date(self):
+        """chequeamos el formato de date"""
+        obj = BaseModel()
+        dic = obj.to_dict()
+        self.assertEqual(type(dic["created_at"]), str)
+        self.assertEqual(type(dic["updated_at"]), str)
     
     def test_save(self):
         """test save"""
@@ -67,6 +74,12 @@ class test_base_model(unittest.TestCase):
     def test_no_kwarg(self):
         """chequeamos la instanciacion cunado no recibe args"""
         self.assertEqual(BaseModel, type(BaseModel()))
+
+    def test_str(self):
+        """chequeo de la str function"""
+        obj = BaseModel()
+        self.assertEqual(type(str(obj)), str)
+        # self.assertEqual(type(__str__(obj)), str)
 
     # def test_print(self)
     #     """test"""

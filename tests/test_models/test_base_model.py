@@ -59,8 +59,14 @@ class test_base_model(unittest.TestCase):
         self.assertEqual(obj1.updated_at, datetime.strptime('2017-09-28T21:03:54.052302', '%Y-%m-%dT%H:%M:%S.%f'))
         self.assertEqual(type(dic["created_at"]), str)
     
-    # def test_no_kwarg
-        
+    def test_kwargs_more(self):
+        """chequeamos que este creando bien los atributos con kwargs"""
+        obj = BaseModel(name="Naruto")
+        self.assertTrue(hasattr(obj, "name"))
+    
+    def test_no_kwarg(self):
+        """chequeamos la instanciacion cunado no recibe args"""
+        self.assertEqual(BaseModel, type(BaseModel()))
 
     # def test_print(self)
     #     """test"""

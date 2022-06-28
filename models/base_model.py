@@ -8,6 +8,7 @@ import models
 from uuid import uuid4
 from datetime import datetime
 
+
 class BaseModel:
     """
     clase base para todos los modelos
@@ -22,15 +23,18 @@ class BaseModel:
                 elif key == 'id':
                     self.id = value
                 elif key == 'created_at':
-                    self.created_at = datetime.strptime(value, '%Y-%m-%dT%H:%M:%S.%f')
+                    self.created_at = datetime.strptime(value,
+                                                        '%Y-%m-%dT%H:%M:%S.%f')
                 elif key == 'updated_at':
-                    self.updated_at = datetime.strptime(value, '%Y-%m-%dT%H:%M:%S.%f')
+                    self.updated_at = datetime.strptime(value,
+                                                        '%Y-%m-%dT%H:%M:%S.%f')
                 else:
                     setattr(self, key, value)
         else:
-            self.id = str(uuid4());
+            self.id = str(uuid4())
             self.created_at = datetime.now()
             self.updated_at = self.created_at
+            models.storage.new(self)
 
     def __str__(self):
         """
@@ -41,6 +45,7 @@ class BaseModel:
     def save(self):
         """method save"""
         self.updated_at = datetime.now()
+        models.storage.save()
 
     def to_dict(self):
         """return a dictionary with methods/attr"""

@@ -8,17 +8,29 @@ import models
 from uuid import uuid4
 from datetime import datetime
 
-
 class BaseModel:
     """
     clase base para todos los modelos
     """
-    def __init__(self, *args, **kwargs)
+    def __init__(self, *args, **kwargs):
         """initialization"""
-        self.id = str(uuid4())
-        self.created_at = datetime.now()
-        self.updated_at = self.created_at
-        
+        # print(kwargs)
+        if (kwargs is not None and len(kwargs) != 0):
+            for key, value in kwargs.items():
+                if key == "__class__":
+                    continue
+                elif key == 'id':
+                    self.id = value
+                elif key == 'created_at':
+                    self.created_at = datetime.strptime(value, '%Y-%m-%dT%H:%M:%S.%f')
+                elif key == 'updated_at':
+                    self.updated_at = datetime.strptime(value, '%Y-%m-%dT%H:%M:%S.%f')
+                else:
+                    setattr(self, key, value)
+        else:
+            self.id = str(uuid4());
+            self.created_at = datetime.now()
+            self.updated_at = self.created_at
         # if kwargs is not None and len(kwargs):
         #     print(print("{} - {}".format(args, kwargs)))
 
@@ -26,7 +38,7 @@ class BaseModel:
         """
         return a string representationddd
         """
-        return (f"[{__class__}] ({self.id}) {self.__dict__}")
+        return (f"[{__class__.__name__}] ({self.id}) {self.__dict__}")
 
     def save(self):
         """method save"""

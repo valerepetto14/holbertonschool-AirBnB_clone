@@ -5,6 +5,7 @@ programm console
 from models.base_model import BaseModel
 import json
 import cmd
+import os
 
 
 class HBNBCommand(cmd.Cmd):
@@ -43,6 +44,33 @@ class HBNBCommand(cmd.Cmd):
             """saves it (to the JSON file) and prints the id"""
             obj.save()
             print(obj.id)
+
+    def do_show(self, line):
+        """mostra dict de un Base model con id pasado"""
+        class_val = ["BaseModel"]
+        flag = 0
+        args = line.split()
+        if line == "" or line is None or len(args) < 1:
+            print("** class name missing **")
+            return
+        if args[0] not in class_val:
+            print("** class doesn't exist **")
+            return
+        if len(args) == 1:
+            print("** instance id missing **")
+            return
+        if os.path.exists('file.json') is True:
+            with open("file.json", mode="r") as f:
+                dic = json.load(f)
+                for key, value in dic.items():
+                    key_split = key.split('.')
+                    if(key_split[0 == args[0]] and key_split[1] == args[1]):
+                        print(f"[{key_split[0]}] ({args[1]}) {value}")
+                        flag = 1
+                if flag == 0:
+                    print("** no instance found **")
+        else:
+            pass
 
 
 if __name__ == '__main__':

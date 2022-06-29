@@ -12,16 +12,16 @@ class HBNBCommand(cmd.Cmd):
     """def class cmd"""
 
     prompt = '(hbnb)'
-    def do_exit(self, line):
+    def do_quit(self, line):
         """def exit"""
         exit()
 
     def do_EOF(self, line):
         """def EOF"""
-        return True
+        exit()
 
     def do_create(self, line):
         """def create"""
-
+    
 if __name__ == '__main__':
     HBNBCommand().cmdloop()

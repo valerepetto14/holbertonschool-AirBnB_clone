@@ -9,7 +9,7 @@ import cmd
 
 class HBNBCommand(cmd.Cmd):
     """def class cmd"""
-    prompt = '(hbnb)'
+    prompt = '(hbnb) '
 
     def do_quit(self, line):
         """def exit"""

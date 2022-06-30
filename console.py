@@ -137,6 +137,11 @@ class HBNBCommand(cmd.Cmd):
         else:
             pass
 
+    def do_update(self, line):
+        """
+        update attributes
+        """
+
 
 if __name__ == '__main__':
     HBNBCommand().cmdloop()

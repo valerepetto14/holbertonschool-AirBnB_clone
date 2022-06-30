@@ -2,7 +2,6 @@
 """
 programm console
 """
-from unicodedata import name
 import models
 from models.base_model import BaseModel
 # from models.engine.file_storage import FileStorage
@@ -51,6 +50,7 @@ class HBNBCommand(cmd.Cmd):
 
     def do_show(self, line):
         """mostra dict de un Base model con id pasado"""
+        base = models.storage.all()
         class_val = ["BaseModel"]
         flag = 0
         args = line.split()
@@ -63,20 +63,17 @@ class HBNBCommand(cmd.Cmd):
         if len(args) == 1:
             print("** instance id missing **")
             return
-        if os.path.exists('file.json') is True:
-            with open("file.json", mode="r") as f:
-                dic = json.load(f)
-                for key, value in dic.items():
-                    key_split = key.split('.')
-                    if(key_split[0 == args[0]] and key_split[1] == args[1]):
-                        print(f"[{key_split[0]}] ({args[1]}) {value}")
-                        flag = 1
-                if flag == 0:
-                    print("** no instance found **")
         else:
-            pass
+            for key, value in base.items():
+                key_split = key.split('.')
+                if(key_split[0] == args[0] and key_split[1] == args[1]):
+                    print(value)
+                    flag = 1
+            if flag == 0:
+                print("** no instance found **")
 
     def do_destroy(self, line):
+        base = models.storage.all()
         """mostra dict de un Base model con id pasado"""
         class_val = ["BaseModel"]
         flag = 0
@@ -91,21 +88,15 @@ class HBNBCommand(cmd.Cmd):
             print("** instance id missing **")
             return
         if os.path.exists('file.json') is True:
-            with open("file.json", mode="r") as f:
-                dic = json.load(f)
-            with open("file.json", mode="w") as f:
-                dic_cp = dic.copy()
-                for key, value in dic.items():
-                    key_split = key.split('.')
-                    if(key_split[0] == args[0] and key_split[1] == args[1]):
-                        del dic_cp[key]
-                        # print(f"nuevo dict {dic_cp}")
-                        json.dump(dic_cp, f)
-                        flag = 1
-                    if flag == 0:
-                        print("** no instance found **")
-        else:
-            pass
+            base_copy = base.copy()
+            for key, value in base_copy.items():
+                key_split = key.split('.')
+                if(key_split[0] == args[0] and key_split[1] == args[1]):
+                    del base[key]
+                    models.storage.save()
+                    flag = 1
+                if flag == 0:
+                    print("** no instance found **")
 
     def do_all(self, line):
         """
@@ -154,13 +145,13 @@ class HBNBCommand(cmd.Cmd):
         if len(args) == 3:
             print("** value missing **")
         if (len == 4):
-             base = models.storage.all()
-             base_cp = base.copy()
-             for key, value in base.items():
+            base = models.storage.all()
+            base_cp = base.copy()
+            for key, value in base.items():
                 key_split = key.split('.')
                 if(key_split[0] == args[0] and key_split[1] == args[1]):
                     base_cp[key][args[2]] = args[3]
-                    
+
 
 if __name__ == '__main__':
     HBNBCommand().cmdloop()

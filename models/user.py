@@ -12,9 +12,10 @@ from uuid import uuid4
 from datetime import datetime
 
 class User(BaseModel):
-    """Clase User Heredada de BaseModel"""
-    def __init__(self):
-        self.email = ""
-        self.password = ""
-        self.first_name = ""
-        self.last_name = ""
+    """Clase User Heredada de BaseModel
+        - atributos de clase publicos
+    """
+    email = ""
+    password = ""
+    first_name = ""
+    last_name = ""

@@ -116,7 +116,13 @@ class HBNBCommand(cmd.Cmd):
         flag = 0
         args = line.split()
         if line == "" or line is None or len(args) < 1:
-            print("** class name missing **")
+            """
+            debe funcionar sin importar si tiene
+            nombre de clase o no"""
+            lista_aux = []
+            for key, value in base.items():
+                lista_aux.append(f"{value}")
+            print(lista_aux)
             return
         if args[0] not in class_val:
             print("** class doesn't exist **")

@@ -12,6 +12,7 @@ import models
 from uuid import uuid4
 from datetime import datetime
 
+
 class User(BaseModel):
     """Clase User Heredada de BaseModel
         - atributos de clase publicos

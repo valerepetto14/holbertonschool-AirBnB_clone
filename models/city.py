@@ -15,5 +15,7 @@ class City(BaseModel):
     """Clase City
         -Atributos publicos de clase
     """
-    state_id = State.id # ???
     name = ""
+
+    def __init__(self, state_id=""):
+        state_id = self.state_id

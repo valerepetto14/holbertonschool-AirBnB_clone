@@ -1,5 +1,5 @@
 """
-Clase Review:
+Clase Place:
     - hereda de BaseModel.
 Public class attributes:
     -city_id: string - empty string: it will be the City.id
@@ -21,8 +21,8 @@ from uuid import uuid4
 from datetime import datetime
 
 
-class Review(BaseModel):
-    """Clase City
+class Place(BaseModel):
+    """Clase Place
         -Atributos publicos de clase
     """
     name = ""

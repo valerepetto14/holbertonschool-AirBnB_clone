@@ -7,6 +7,7 @@ Public class attributes:
     -first_name: string - empty string
     -last_name: string - empty string
 """
+from models.base_model import BaseModel
 import models
 from uuid import uuid4
 from datetime import datetime

@@ -96,7 +96,7 @@ class HBNBCommand(cmd.Cmd):
                 dic_cp = dic.copy()
                 for key, value in dic.items():
                     key_split = key.split('.')
-                    if(key_split[0 == args[0]] and key_split[1] == args[1]):
+                    if(key_split[0] == args[0] and key_split[1] == args[1]):
                         del dic_cp[key]
                         # print(f"nuevo dict {dic_cp}")
                         json.dump(dic_cp, f)
@@ -141,6 +141,14 @@ class HBNBCommand(cmd.Cmd):
         """
         update attributes
         """
+        class_val = ["BaseModel", "User"]
+        args = line.split()
+        if line == "" or line is None or len(args) < 1:
+            print("** class name missing **")
+        if args[0] not in class_val:
+            print("** class name missing **")
+        if len(args) == 1:
+            print("** instance id missing **")
 
 
 if __name__ == '__main__':

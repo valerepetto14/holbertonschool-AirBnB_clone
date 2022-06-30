@@ -7,6 +7,7 @@ Class FileStorage:
 import json
 import os
 from models.base_model import BaseModel
+from models.user import User
 
 
 class FileStorage:
@@ -32,7 +33,7 @@ class FileStorage:
         with open(self.__file_path, 'w', encoding="utf-8") as f:
             for key, value in self.__objects.items():
                 dic[key] = value.to_dict()
-            json.dump(dic, f)
+            json.dump(dic, f, indent=4)
 
     def reload(self):
         """

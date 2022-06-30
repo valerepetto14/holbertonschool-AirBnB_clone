@@ -4,6 +4,7 @@ programm console
 """
 import models
 from models.base_model import BaseModel
+from models.user import User
 # from models.engine.file_storage import FileStorage
 from datetime import datetime
 import json
@@ -29,7 +30,7 @@ class HBNBCommand(cmd.Cmd):
 
     def do_create(self, line):
         """create a new instance of BaseModel"""
-        class_val = ["BaseModel"]
+        class_val = ["BaseModel","User"]
         args = line.split()
         if line == "" or line is None or len(args) < 1:
             print("** class name missing **")
@@ -51,7 +52,7 @@ class HBNBCommand(cmd.Cmd):
     def do_show(self, line):
         """mostra dict de un Base model con id pasado"""
         base = models.storage.all()
-        class_val = ["BaseModel"]
+        class_val = ["BaseModel", "User"]
         flag = 0
         args = line.split()
         if line == "" or line is None or len(args) < 1:
@@ -75,7 +76,7 @@ class HBNBCommand(cmd.Cmd):
     def do_destroy(self, line):
         base = models.storage.all()
         """mostra dict de un Base model con id pasado"""
-        class_val = ["BaseModel"]
+        class_val = ["BaseModel", "User"]
         flag = 0
         args = line.split()
         if line == "" or line is None or len(args) < 1:
@@ -104,7 +105,7 @@ class HBNBCommand(cmd.Cmd):
         on the class name, "all" and "all class_name"
         """
         base = models.storage.all()
-        class_val = ["BaseModel"]
+        class_val = ["BaseModel", "User"]
         args = line.split()
         if line == "" or line is None or len(args) < 1:
             """
@@ -144,14 +145,20 @@ class HBNBCommand(cmd.Cmd):
             print("** attribute name missing **")
         if len(args) == 3:
             print("** value missing **")
-        if (len == 4):
+        if len(args) == 4:
             base = models.storage.all()
-            base_cp = base.copy()
             for key, value in base.items():
                 key_split = key.split('.')
                 if(key_split[0] == args[0] and key_split[1] == args[1]):
-                    base_cp[key][args[2]] = args[3]
-
+                    setattr(value,args[2],args[3])
+                    models.storage.save()
+                    # objeto = dir(value)
+                    # if args[2] in objeto:
+                    #     setattr(value,args[2],args[3])
+                    #     models.storage.save()
+                    # else:
+                    #     setattr(value,args[2],args[3])
+                    #     models.storage.save()
 
 if __name__ == '__main__':
     HBNBCommand().cmdloop()

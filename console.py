@@ -155,7 +155,7 @@ class HBNBCommand(cmd.Cmd):
             for key, value in base.items():
                 key_split = key.split('.')
                 if(key_split[0] == args[0] and key_split[1] == args[1]):
-                    setattr(value, args[2], args[3]) """inst/attr/value"""
+                    setattr(value, args[2], args[3])
                     models.storage.save()
                     # objeto = dir(value)
                     # if args[2] in objeto:
@@ -169,15 +169,14 @@ class HBNBCommand(cmd.Cmd):
         """contar el numero de instancias de una clase"""
         class_val = ["BaseModel", "User", "State", "City", "Amenity",
                      "Place", "Review"]
+        base = models.storage.all()
+        count = 0
         if arg in class_val:
-            count = 0
-            base = models.storage.all()
             for key, value in base.items():
-                if arg in key:
+                key_split = key.split('.')
+                if key_split[0] == arg:
                     count += 1
             print(count)
-            return
-        print("** class doesn't exist **")
 
 
 if __name__ == '__main__':

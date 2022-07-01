@@ -117,3 +117,7 @@ class test_base_model(unittest.TestCase):
         obj = BaseModel()
         obj.name = "naruto"
         self.assertIn("name", obj.to_dict())
+
+
+if __name__ == '__main__':
+  unittest.main()

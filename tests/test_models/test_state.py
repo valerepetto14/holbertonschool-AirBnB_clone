@@ -27,3 +27,7 @@ class test_State():
         obj = State()
         obj.save()
         self.assertIs(type(obj.to_dict()), dict)
+
+
+if __name__ == '__main__':
+  unittest.main()

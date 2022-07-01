@@ -15,3 +15,7 @@ class test_City(unittest.TestCase):
         """chequeamos attr(type, value), subclass"""
         self.assertTrue('state_id' in City.__dict__)
         self.assertTrue('name' in City.__dict__)
+
+
+if __name__ == '__main__':
+  unittest.main()

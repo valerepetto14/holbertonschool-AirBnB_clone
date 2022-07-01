@@ -17,3 +17,6 @@ class test_amenity(unittest.TestCase):
         self.assertTrue(issubclass(Amenity, BaseModel))
         self.assertEqual(obj.name, "")
         self.assertEqual(type(obj.name), str)
+
+if __name__ == '__main__':
+  unittest.main()

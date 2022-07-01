@@ -2,6 +2,7 @@
 """
 programm console
 """
+from itertools import count
 import models
 from models.base_model import BaseModel
 from models.user import User
@@ -24,7 +25,7 @@ class HBNBCommand(cmd.Cmd):
         """def EOF"""
         exit()
 
-    def do_emptyline(self):
+    def emptyline(self):
         """linea vacia no hacemos nada"""
         pass
 
@@ -123,13 +124,13 @@ class HBNBCommand(cmd.Cmd):
         if args[0] not in class_val:
             print("** class doesn't exist **")
             return
-        lista_ins = []
         if args[0] in class_val:
+            lista_ins = []
             for key, value in base.items():
                 key_split = key.split('.')
                 if(key_split[0] == args[0]):
                     lista_ins.append(f"{value}")
-                print(lista_ins)
+            print(lista_ins)
         else:
             pass
 
@@ -177,7 +178,18 @@ class HBNBCommand(cmd.Cmd):
                 if key_split[0] == arg:
                     count += 1
             print(count)
-
+    
+    def default(self, line):
+        base = models.storage.all()
+        class_val = ["BaseModel", "User", "State", "City", "Amenity"]
+        comando = line.split(".")
+        lista_ins = []
+        if comando[0] in class_val and comando[1] == "all()":
+            HBNBCommand.do_all(self,comando[0])
+        elif comando[0] in class_val and comando[1] == "count()":
+            HBNBCommand.do_count(self,comando[0])
+        else:
+            print(f"*** Unknown syntax: {line}")
 
 if __name__ == '__main__':
     HBNBCommand().cmdloop()

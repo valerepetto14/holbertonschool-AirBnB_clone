@@ -12,7 +12,9 @@ Public class attributes:
     -price_by_night: integer - 0
     -latitude: float - 0.0
     -longitude: float - 0.0
-    -amenity_ids: list of string - empty list: it will be the list of Amenity.id later    state_id: string - empty string: it will be the State.id
+    -amenity_ids: list of string - empty list:
+                    it will be the list of Amenity.id later
+    state_id: string - empty string: it will be the State.id
     -name: string - empty string
 """
 from models.base_model import BaseModel

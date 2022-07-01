@@ -9,6 +9,7 @@ import models
 from uuid import uuid4
 from datetime import datetime
 
+
 class Amenity(BaseModel):
     """Clase Amenity
     - Public class attribute

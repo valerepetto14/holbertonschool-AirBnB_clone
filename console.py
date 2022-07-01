@@ -30,7 +30,8 @@ class HBNBCommand(cmd.Cmd):
 
     def do_create(self, line):
         """create a new instance of BaseModel"""
-        class_val = ["BaseModel","User"]
+        class_val = ["BaseModel", "User", "State", "City", "Amenity",
+                     "Place", "Review"]
         args = line.split()
         if line == "" or line is None or len(args) < 1:
             print("** class name missing **")
@@ -52,7 +53,8 @@ class HBNBCommand(cmd.Cmd):
     def do_show(self, line):
         """mostra dict de un Base model con id pasado"""
         base = models.storage.all()
-        class_val = ["BaseModel", "User"]
+        class_val = ["BaseModel", "User", "State", "City", "Amenity",
+                     "Place", "Review"]
         flag = 0
         args = line.split()
         if line == "" or line is None or len(args) < 1:
@@ -76,7 +78,8 @@ class HBNBCommand(cmd.Cmd):
     def do_destroy(self, line):
         base = models.storage.all()
         """mostra dict de un Base model con id pasado"""
-        class_val = ["BaseModel", "User"]
+        class_val = ["BaseModel", "User", "State", "City", "Amenity",
+                     "Place", "Review"]
         flag = 0
         args = line.split()
         if line == "" or line is None or len(args) < 1:
@@ -105,7 +108,8 @@ class HBNBCommand(cmd.Cmd):
         on the class name, "all" and "all class_name"
         """
         base = models.storage.all()
-        class_val = ["BaseModel", "User"]
+        class_val = ["BaseModel", "User", "State", "City", "Amenity",
+                     "Place", "Review"]
         args = line.split()
         if line == "" or line is None or len(args) < 1:
             """
@@ -133,7 +137,8 @@ class HBNBCommand(cmd.Cmd):
         """
         update attributes
         """
-        class_val = ["BaseModel", "User"]
+        class_val = ["BaseModel", "User", "State", "City", "Amenity",
+                     "Place", "Review"]
         args = line.split()
         if line == "" or line is None or len(args) < 1:
             print("** class name missing **")
@@ -150,7 +155,7 @@ class HBNBCommand(cmd.Cmd):
             for key, value in base.items():
                 key_split = key.split('.')
                 if(key_split[0] == args[0] and key_split[1] == args[1]):
-                    setattr(value,args[2],args[3])
+                    setattr(value, args[2], args[3]) """inst/attr/value"""
                     models.storage.save()
                     # objeto = dir(value)
                     # if args[2] in objeto:
@@ -159,6 +164,21 @@ class HBNBCommand(cmd.Cmd):
                     # else:
                     #     setattr(value,args[2],args[3])
                     #     models.storage.save()
+
+    def do_count(self, arg):
+        """contar el numero de instancias de una clase"""
+        class_val = ["BaseModel", "User", "State", "City", "Amenity",
+                     "Place", "Review"]
+        if arg in class_val:
+            count = 0
+            base = models.storage.all()
+            for key, value in base.items():
+                if arg in key:
+                    count += 1
+            print(count)
+            return
+        print("** class doesn't exist **")
+
 
 if __name__ == '__main__':
     HBNBCommand().cmdloop()

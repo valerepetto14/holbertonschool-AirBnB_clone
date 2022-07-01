@@ -16,5 +16,6 @@ class Review(BaseModel):
     """Clase Place
         -Atributos publicos de clase
     """
+    place_id = ""
+    user_id = ""
     text = ""
-    

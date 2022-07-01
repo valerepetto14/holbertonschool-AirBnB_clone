@@ -43,12 +43,14 @@ class test_base_model(unittest.TestCase):
         self.assertEqual(type(obj.created_at), datetime)
         self.assertEqual(type(obj.updated_at), datetime)
 
-    def test_BaseModel_format_date(self):
+    def test_format_date(self):
         """chequeamos el formato de date"""
         obj = BaseModel()
         dic = obj.to_dict()
         self.assertEqual(type(dic["created_at"]), str)
         self.assertEqual(type(dic["updated_at"]), str)
+
+    
 
     def test_save(self):
         """test save"""
@@ -70,6 +72,18 @@ class test_base_model(unittest.TestCase):
         dic = obj1.to_dict()
         self.assertEqual(type(dic["updated_at"]), str)
         self.assertEqual(type(dic["created_at"]), str)
+
+    def test_dict2(self):
+        """comprobar existencia de keys """
+        obj = BaseModel()
+        self.assertIn("id", obj.to_dict())
+        self.assertIn("created_at", obj.to_dict())
+        self.assertIn("updated_at", obj.to_dict())
+
+    def test_dict_equal(self):
+        """comprobar igualdad de attributos"""
+        obj = BaseModel()
+        self.assertEqual(type(obj.to_dict()), dict)
 
     def test_kwarg(self):
         """test que valida que se llene mediante un diccionario"""
@@ -98,8 +112,8 @@ class test_base_model(unittest.TestCase):
         self.assertEqual(type(str(obj)), str)
         # self.assertEqual(type(__str__(obj)), str)
 
-    # def test_print(self)
-    #     """test"""
-    #     self.assertEqual(BaseModel(1), self.id == 1)
-    #     self.assertEqual(BaseModel(1000), self.id == 1000)
-    #     self.assertEqual(BaseModel(3), self.id == 3)
+    def test_more_attr(self):
+        """chequeamos si se estan creando atributos"""
+        obj = BaseModel()
+        obj.name = "naruto"
+        self.assertIn("name", obj.to_dict())

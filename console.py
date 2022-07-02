@@ -104,55 +104,82 @@ class HBNBCommand(cmd.Cmd):
             if flag == 0:
                     print("** no instance found **")
 
-    def do_all(self, arg):
-        '''function that returns a str repr of all instances'''
-        args = arg.split()
-        data = models.storage.all()
-        data_instances = []
-
-        if len(args) == 0:
-            for key, value in data.items():
-                data_instances.append(str(value))
-            print(data_instances)
-        elif args[0] not in self.class_val and len(args) == 1:
-            print(" class doesn't exist ")
-        else:
-            for key, value in data.items():
-                if args[0] in key:
-                    data_instances.append(str(value))
-            print(data_instances)
-
-    def do_update(self, line):
+    def do_all(self, line):
         """
-        update attributes
+        Prints all string representation of all instances based or not
+        on the class name, "all" and "all class_name"
         """
+        base = models.storage.all()
         class_val = ["BaseModel", "User", "State", "City", "Amenity",
                      "Place", "Review"]
         args = line.split()
         if line == "" or line is None or len(args) < 1:
-            print("** class name missing **")
+            """
+            debe funcionar sin importar si tiene
+            nombre de clase o no"""
+            lista_aux = []
+            for key, value in base.items():
+                lista_aux.append(f"{value}")
+            print(lista_aux)
             return
         if args[0] not in class_val:
             print("** class doesn't exist **")
             return
-        if len(args) == 1:
-            print("** instance id missing **")
-            return
-        if len(args) == 2:
-            print("** attribute name missing **")
-            return
-        if len(args) == 3:
-            print("** value missing **")
-            return
-        base = models.storage.all()
-        for key, value in base.items():
-            key_split = key.split('.')
-            val = args[3]
-            if '"' in val:
-                val = val.strip('"')
-            if(key_split[0] == args[0] and key_split[1] == args[1]):
-                setattr(value, args[2], val)
-                models.storage.save()
+        if args[0] in class_val:
+            lista_ins = []
+            for key, value in base.items():
+                key_split = key.split('.')
+                if(key_split[0] == args[0]):
+                    lista_ins.append(f"{value}")
+            print(lista_ins)
+        else:
+            pass
+
+    def do_update(self, arg):
+        '''Update an instance based on cls name and id and add new attr'''
+        args = arg.split()
+        checker = 0
+
+        if len(args) < 4:
+            if len(args) == 0:
+                print("** class name missing **")
+            if len(args) == 1:
+                print("** instance id missing **")
+            else:
+                print("** class doesn't exist **")
+            if len(args) == 2:
+                data = models.storage.all()
+                key_id = f"{args[0]}.{args[1]}"
+                for key, value in data.items():
+                    if key_id == key:
+                        print("** attribute name missing **")
+                        checker = 1
+                if checker == 0:
+                    print("** no instance found **")
+            if len(args) == 3:
+                print("** value missing **")
+        if len(args) == 4:
+            data = models.storage.all()
+            key_id = f"{args[0]}.{args[1]}"
+            for key, value in data.items():
+                if key_id == key:
+                    if args[3] == key:
+                        setattr(value, args[2], args[3])
+                        models.storage.save()
+                    else:
+                        setattr(value, args[2], args[3])
+                        models.storage.save()
+        elif len(args) > 4:
+            data = models.storage.all()
+            key_id = f"{args[0]}.{args[1]}"
+            for key, value in data.items():
+                if key_id == key:
+                    if args[3] == key:
+                        setattr(value, args[2], args[3])
+                        models.storage.save()
+                    else:
+                        setattr(value, args[2], args[3])
+                        models.storage.save()
 
     def do_count(self, arg):
         """contar el numero de instancias de una clase"""

@@ -200,22 +200,17 @@ class HBNBCommand(cmd.Cmd):
                 id_cast = aidi[0].strip('"')
                 HBNBCommand.do_destroy(self, f"{comando[0]} {id_cast}")
             elif entr[0] in self.class_val and "update" in entr[1]:
-                f_div = entr[1].split("(")
-                # ['update', '"904a6d22-5860-41c2-8f92-4ca9d47562a9",
-                #  "first_name", "santiago")']
-                coma_div = f_div[1].split(',')
-                # ['"904a6d22-5860-41c2-8f92-4ca9d47562a9"',
-                # ' "first_name"', ' "santiago")']
-                aidi = coma_div[0].strip('"')
-                # ' "first_name"'
-                attr = coma_div[1].strip().strip('"')
-                # "santiago")'
-                arg2 = coma_div[2].split(")")
-                # [' "santiago"', '']
-                val = arg2[0].strip()
+                id = comando[1].split("(")[1]
+                id = id.split(",")[0]
 
-                line = f"{entr[0]} {aidi} {attr} {val}"
-                HBNBCommand.do_update(self, line)
+                arg1 = comando[1].split("(")[1]
+                arg1 = arg1.split(",")[1]
+                arg1 = arg1.split(" ")[1]
+
+                arg2 = comando[1].split("(")[1]
+                arg2 = arg2.split(",")[2]
+                arg2 = arg2.split(")")[0]
+
         else:
             pass
 

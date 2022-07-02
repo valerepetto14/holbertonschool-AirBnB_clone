@@ -132,47 +132,56 @@ class HBNBCommand(cmd.Cmd):
                 if(key_split[0] == args[0]):
                     lista_ins.append(f"{value}")
             print(lista_ins)
+        else:
+            pass
 
     def do_update(self, line):
         """
         update attributes
         """
-        split_arg = line.split()  # use of split() method to parse "arg"
+        args = line.split()
+        checker = 0
 
-        if not split_arg:
-            print("** class name missing **")
-        elif split_arg[0] not in HBNBCommand.classes_list:
-            print("** class doesn't exist **")
-        elif len(split_arg) == 1:  # if len is 1, is because the id is missing
-            print("** instance id missing **")
-        # Se un else para chequear si existe el id, es el split_arg[1] lo
-        # hacemos por separado para no tener problemas con instance missing
-        else:
-            key = f"{split_arg[0]}.{split_arg[1]}"  # generate key: class.id
-            # save in variable "aux_dict" result of __objects
-            aux_dict = models.storage.all()
-            if key not in aux_dict:  # requirements checks
-                print("** no instance found **")
-            elif len(split_arg) == 2:
-                print("** attribute name missing **")
-            elif len(split_arg) == 3:
-                print("** value missing **")
+        if len(args) < 4:
+            if len(args) == 0:
+                print("** class name missing **")
+            if len(args) == 1:
+                print("** instance id missing **")
             else:
-                # Se usa el metodo get() para obtener el value de la "key"
-                # correspondiente y se lo guarda en la variable "obj" ya que
-                # si la key esta dentro de "aux_dict" se viene a este else.
-
-                # Obtenemos el tipo del dato de "value" usando eval():
-                cast_type = type(eval(split_arg[3]))
-
-                # This is the value to update the argument passed
-                value_arg = split_arg[3]
-                # Use of strip to remove quotes
-                value_arg = value_arg.strip('"')
-
-                obj = aux_dict.get(key)
-                setattr(obj, split_arg[2], cast_type(value_arg))
-                models.storage.save()
+                print("** class doesn't exist **")
+            if len(args) == 2:
+                data = models.storage.all()
+                key_id = f"{args[0]}.{args[1]}"
+                for key, value in data.items():
+                    if key_id == key:
+                        print("** attribute name missing **")
+                        checker = 1
+                if checker == 0:
+                    print("** no instance found **")
+            if len(args) == 3:
+                print("** value missing **")
+        if len(args) == 4:
+            data = models.storage.all()
+            key_id = f"{args[0]}.{args[1]}"
+            for key, value in data.items():
+                if key_id == key:
+                    if args[3] == key:
+                        setattr(value, args[2], args[3])
+                        models.storage.save()
+                    else:
+                        setattr(value, args[2], args[3])
+                        models.storage.save()
+        elif len(args) > 4:
+            data = models.storage.all()
+            key_id = f"{args[0]}.{args[1]}"
+            for key, value in data.items():
+                if key_id == key:
+                    if args[3] == key:
+                        setattr(value, args[2], args[3])
+                        models.storage.save()
+                    else:
+                        setattr(value, args[2], args[3])
+                        models.storage.save()
 
     def do_count(self, arg):
         """contar el numero de instancias de una clase"""

@@ -16,6 +16,12 @@ class test_City(unittest.TestCase):
         """chequeamos que sea una subclase de basemodel"""
         self.assertTrue(issubclass(City, BaseModel))
 
+    def test_clase(self):
+        """chequeamos la subclase"""
+        self.assertEqual(City.name, "")
+        self.assertEqual(City.state_id, "")
+        self.assertTrue(issubclass(City, BaseModel))
+
     def test_attr_type(self):
         """chequeamos tipo de atributos"""
         obj = City()

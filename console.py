@@ -37,41 +37,43 @@ class HBNBCommand(cmd.Cmd):
         pass
 
     def do_create(self, line):
-        '''function that creates a new instance of BM, save it and print it'''
-        args = line.split()
-        classname = "BaseModel"
-        if len(args) == 0 or args is None or args == "":
-            print("** class name missing **")
-        if args[0] in self.class_val:
-            new_inst = self.class_val[args[0]]()
-        else:
-            print("** class doesn't exist **")
-            return False
-        print(new_inst.id)
-        new_inst.save()
-
-    def do_show(self, line):
-        """mostra dict de un Base model con id pasado"""
-        base = models.storage.all()
-        flag = 0
+        """create a new instance of BaseModel"""
         args = line.split()
         if line == "" or line is None or len(args) < 1:
             print("** class name missing **")
             return
-        if args[0] not in self.class_val:
+        clase = args[0]
+        if clase not in self.class_val:
             print("** class doesn't exist **")
             return
-        if len(args) == 1:
-            print("** instance id missing **")
-            return
+        """
+        evalua como código una cadena
+        si el comando existe lo ejecuto
+        """
+        if clase in self.class_val:
+            obj = eval(clase)()
+            """saves it (to the JSON file) and prints the id"""
+            obj.save()
+            print(obj.id)
+
+    def do_show(self, line):
+        '''print str repr of an inst based on the clss name and id'''
+        args = line.split()
+        if len(args) == 0:
+            print("** class name missing **")
+            return False
+        if args[0] in self.class_val:
+            if len(args) > 1:
+                key = f"{args[0]}.{args[1]}"
+                data = models.storage.all()
+                if key in data:
+                    print(data[key])
+                else:
+                    print("** no instance found **")
+            else:
+                print("** instance id missing **")
         else:
-            for key, value in base.items():
-                key_split = key.split('.')
-                if(key_split[0] == args[0] and key_split[1] == args[1]):
-                    print(value)
-                    flag = 1
-            if flag == 0:
-                print("** no instance found **")
+            print("** class doesn't exist **")
 
     def do_destroy(self, line):
         base = models.storage.all()

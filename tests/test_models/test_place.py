@@ -11,7 +11,10 @@ from models.place import Place
 
 class test_Place(unittest.TestCase):
     """test Place"""
-    
+    def test_procedence(self):
+        """chequeamos si efectivamente es una subclase"""
+        self.assertTrue(issubclass(Place, BaseModel))
+
     def test_attr(self):
         """test existencia de atributos"""
         obj = Place()

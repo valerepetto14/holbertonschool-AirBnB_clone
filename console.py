@@ -160,12 +160,12 @@ class HBNBCommand(cmd.Cmd):
             val = args[3]
             if '"' in val:
                 val = val.strip('"')
-            if(key_split[0] == args[0] and key_split[1] == args[1]):
+            if (key_split[0] not in self.class_val):
+                print("** no instance found **")
+                return
+            if (key_split[0] == args[0] and key_split[1] == args[1]):
                 setattr(value, args[2], val)
                 models.storage.save()
-                flag = 1
-            if flag == 0:
-                print("** no instance found **")
 
     def do_count(self, arg):
         """contar el numero de instancias de una clase"""

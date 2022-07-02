@@ -10,6 +10,10 @@ from models.base_model import BaseModel
 from models.amenity import Amenity
 
 class test_amenity(unittest.TestCase):
+    def test_procedence(self):
+        """chequeamos que sea otra subclase de basemodel"""
+        self.assertTrue(issubclass(Amenity, BaseModel))
+
     """Casos de prueba para la clase Amenity"""
     def test_attr(self):
         """chequeamos existencia de atributo"""
@@ -31,6 +35,14 @@ class test_amenity(unittest.TestCase):
         obj = Amenity()
         other = Amenity()
         self.assertNotEqual(obj, other)
+
+    def test_date_amen(self):
+        """chequeamos methods in different times"""
+        obj1 = Amenity()
+        sleep(0.2)
+        obj2 = Amenity()
+        self.assertNotEqual(obj1.updated_at, obj2.updated_at)
+        self.assertLess(obj1.created_at, obj2.created_at)
 
 if __name__ == '__main__':
   unittest.main()

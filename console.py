@@ -6,6 +6,11 @@ from itertools import count
 import models
 from models.base_model import BaseModel
 from models.user import User
+from models.city import City
+from models.review import Review
+from models.state import State
+from models.place import Place
+from models.amenity import Amenity
 # from models.engine.file_storage import FileStorage
 from datetime import datetime
 import json
@@ -178,18 +183,24 @@ class HBNBCommand(cmd.Cmd):
                 if key_split[0] == arg:
                     count += 1
             print(count)
-    
+
     def default(self, line):
         base = models.storage.all()
         class_val = ["BaseModel", "User", "State", "City", "Amenity"]
         comando = line.split(".")
         lista_ins = []
         if comando[0] in class_val and comando[1] == "all()":
-            HBNBCommand.do_all(self,comando[0])
+            HBNBCommand.do_all(self, comando[0])
         elif comando[0] in class_val and comando[1] == "count()":
-            HBNBCommand.do_count(self,comando[0])
+            HBNBCommand.do_count(self, comando[0])
+        elif comando[0] in class_val and "show" in comando[1]:
+            ide = comando[1].split('(')
+            ide1 = ide[1].split(')')
+            print(f"{comando[0]}{ide1[0]}")
+            HBNBCommand.do_show(self, f"{comando[0]} {ide1[0]}")
         else:
             print(f"*** Unknown syntax: {line}")
+
 
 if __name__ == '__main__':
     HBNBCommand().cmdloop()

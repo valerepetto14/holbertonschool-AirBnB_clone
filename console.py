@@ -139,32 +139,41 @@ class HBNBCommand(cmd.Cmd):
         """
         update attributes
         """
-        class_val = ["BaseModel", "User", "State", "City", "Amenity",
-                     "Place", "Review"]
-        args = line.split()
-        if line == "" or line is None or len(args) < 1:
+        split_arg = line.split()  # use of split() method to parse "arg"
+
+        if not split_arg:
             print("** class name missing **")
-            return
-        if args[0] not in class_val:
+        elif split_arg[0] not in HBNBCommand.classes_list:
             print("** class doesn't exist **")
-            return
-        if len(args) == 1:
+        elif len(split_arg) == 1:  # if len is 1, is because the id is missing
             print("** instance id missing **")
-            return
-        if len(args) == 2:
-            print("** attribute name missing **")
-            return
-        if len(args) == 3:
-            print("** value missing **")
-            return
-        base = models.storage.all()
-        for key, value in base.items():
-            key_split = key.split('.')
-            val = args[3]
-            if '"' in val:
-                val = val.strip('"')
-            if(key_split[0] == args[0] and key_split[1] == args[1]):
-                setattr(value, args[2], val)
+        # Se un else para chequear si existe el id, es el split_arg[1] lo
+        # hacemos por separado para no tener problemas con instance missing
+        else:
+            key = f"{split_arg[0]}.{split_arg[1]}"  # generate key: class.id
+            # save in variable "aux_dict" result of __objects
+            aux_dict = models.storage.all()
+            if key not in aux_dict:  # requirements checks
+                print("** no instance found **")
+            elif len(split_arg) == 2:
+                print("** attribute name missing **")
+            elif len(split_arg) == 3:
+                print("** value missing **")
+            else:
+                # Se usa el metodo get() para obtener el value de la "key"
+                # correspondiente y se lo guarda en la variable "obj" ya que
+                # si la key esta dentro de "aux_dict" se viene a este else.
+
+                # Obtenemos el tipo del dato de "value" usando eval():
+                cast_type = type(eval(split_arg[3]))
+
+                # This is the value to update the argument passed
+                value_arg = split_arg[3]
+                # Use of strip to remove quotes
+                value_arg = value_arg.strip('"')
+
+                obj = aux_dict.get(key)
+                setattr(obj, split_arg[2], cast_type(value_arg))
                 models.storage.save()
 
     def do_count(self, arg):

@@ -15,6 +15,13 @@ class test_amenity(unittest.TestCase):
         """chequeamos que sea otra subclase de basemodel"""
         self.assertTrue(issubclass(Amenity, BaseModel))
 
+    def test_clase(self):
+        """
+        test class & test subclass
+        """
+        self.assertEqual(Amenity.name, "")
+        self.assertTrue(issubclass(Amenity, BaseModel))
+
     def test_no_receive(self):
         """chequeamos cuando no recibe nada"""
         self.assertEqual(Amenity, type(Amenity()))

@@ -93,12 +93,12 @@ class HBNBCommand(cmd.Cmd):
         if len(args) == 1:
             print("** instance id missing **")
             return
-        if os.path.exists('file.json') is True:
+        else:
             base_copy = base.copy()
             for key, value in base_copy.items():
                 key_split = key.split('.')
                 if(key_split[0] == args[0] and key_split[1] == args[1]):
-                    del base[key]
+                    base.pop(key)
                     models.storage.save()
                     flag = 1
             if flag == 0:

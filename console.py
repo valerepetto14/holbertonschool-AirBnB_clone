@@ -82,28 +82,26 @@ class HBNBCommand(cmd.Cmd):
                 print("** no instance found **")
 
     def do_destroy(self, arg):
-        """
-        Deletes an instance based on the class name and id
-        (save the change into the JSON file).
-        Usage: destroy <class name> <id>
-        """
-        split_arg = arg.split()  # use of split() method to parse "arg"
-
-        if not split_arg:
+        '''Deletes an instance based on the class name and id'''
+        class_val = ["BaseModel", "User", "State", "City", "Amenity",
+                     "Place", "Review"]
+        args = arg.split()
+        if len(args) == 0:
             print("** class name missing **")
-        elif split_arg[0] not in HBNBCommand.classes_list:
-            print("** class doesn't exist **")
-        elif len(split_arg) == 1:  # if len is 1, is because the id is missing
-            print("** instance id missing **")
-        else:
-            key = f"{split_arg[0]}.{split_arg[1]}"  # generate key: class.id
-            # save in variable "aux_dict" result of __objects
-            aux_dict = models.storage.all()
-            if key in aux_dict:
-                aux_dict.pop(key)  # use of pop method to remove the chosen key
-                models.storage.save()  # save changes into the storage in: file.json
+            return False
+        if args[0] in class_val:
+            if len(args) > 1:
+                key = f"{args[0]}.{args[1]}"
+                data = models.storage.all()
+                if key in data:
+                    data.pop(key)
+                    models.storage.save()
+                else:
+                    print("** no instance found **")
             else:
-                print("** no instance found **")
+                print("** instance id missing **")
+        else:
+            print("** class doesn't exist **")
 
     def do_all(self, line):
         """

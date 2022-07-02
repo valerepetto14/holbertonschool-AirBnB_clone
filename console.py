@@ -105,7 +105,7 @@ class HBNBCommand(cmd.Cmd):
                     del base[key]
                     models.storage.save()
                     flag = 1
-                if flag == 0:
+            if flag == 0:
                     print("** no instance found **")
 
     def do_all(self, line):
@@ -202,10 +202,11 @@ class HBNBCommand(cmd.Cmd):
                 # print(f"{comando[0]}{ide1[0]}")
                 HBNBCommand.do_show(self, f"{comando[0]} {ide1[0]}")
             elif comando[0] in class_val and "destroy" in comando[1]:
-                ide = comando[1].split('(')
-                ide1 = ide[1].split(')')
-                # print(f"{comando[0]}{ide1[0]}")
-                HBNBCommand.do_show(self, f"{comando[0]} {ide1[0]}")
+                vari = comando[1].split('(')
+                aidi = vari[1].split(')')
+                # "id" -> strip -> limpio
+                id_cast = aidi[0].strip('"')
+                HBNBCommand.do_destroy(self, f"{comando[0]} {id_cast}")
             elif entr[0] in class_val and "update" in entr[1]:
                 f_div = entr[1].split("(")
                 # ['update', '"904a6d22-5860-41c2-8f92-4ca9d47562a9",

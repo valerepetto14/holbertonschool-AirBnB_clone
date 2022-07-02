@@ -11,6 +11,10 @@ from models.review import Review
 
 class test_Review(unittest.TestCase):
     """Test to Review class"""
+    def test_procedence(self):
+      """chequeamos si efectivamente es una subclase"""
+      self.assertTrue(issubclass(Review, BaseModel))
+
     def test_instances(self):
       """chequeamos existencia de atributos"""
       obj = Review()

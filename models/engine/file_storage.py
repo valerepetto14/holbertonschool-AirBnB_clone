@@ -39,7 +39,7 @@ class FileStorage:
         with open(self.__file_path, 'w', encoding="utf-8") as f:
             for key, value in self.__objects.items():
                 dic[key] = value.to_dict()
-            json.dump(dic, f, indent=4)
+            json.dump(dic, f)
 
     def reload(self):
         """

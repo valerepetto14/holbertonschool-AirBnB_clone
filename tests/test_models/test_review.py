@@ -29,6 +29,7 @@ class test_Review(unittest.TestCase):
         self.assertTrue(hasattr(obj, 'place_id'))
         self.assertTrue(hasattr(obj, 'text'))
         self.assertTrue(hasattr(obj, 'user_id'))
+        self.assertTrue(issubclass(Review, BaseModel))
 
     def test_attr_type(self):
         """test tipo de los atributos"""

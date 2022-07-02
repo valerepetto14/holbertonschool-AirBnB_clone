@@ -135,51 +135,37 @@ class HBNBCommand(cmd.Cmd):
         else:
             pass
 
-    def do_update(self, arg):
-        '''Update an instance based on cls name and id and add new attr'''
-        args = arg.split()
-        checker = 0
-
-        if len(args) < 4:
-            if len(args) == 0:
-                print("** class name missing **")
-            if len(args) == 1:
-                print("** instance id missing **")
-            else:
-                print("** class doesn't exist **")
-            if len(args) == 2:
-                data = models.storage.all()
-                key_id = f"{args[0]}.{args[1]}"
-                for key, value in data.items():
-                    if key_id == key:
-                        print("** attribute name missing **")
-                        checker = 1
-                if checker == 0:
-                    print("** no instance found **")
-            if len(args) == 3:
-                print("** value missing **")
-        if len(args) == 4:
-            data = models.storage.all()
-            key_id = f"{args[0]}.{args[1]}"
-            for key, value in data.items():
-                if key_id == key:
-                    if args[3] == key:
-                        setattr(value, args[2], args[3])
-                        models.storage.save()
-                    else:
-                        setattr(value, args[2], args[3])
-                        models.storage.save()
-        elif len(args) > 4:
-            data = models.storage.all()
-            key_id = f"{args[0]}.{args[1]}"
-            for key, value in data.items():
-                if key_id == key:
-                    if args[3] == key:
-                        setattr(value, args[2], args[3])
-                        models.storage.save()
-                    else:
-                        setattr(value, args[2], args[3])
-                        models.storage.save()
+    def do_update(self, line):
+        """
+        update attributes
+        """
+        class_val = ["BaseModel", "User", "State", "City", "Amenity",
+                     "Place", "Review"]
+        args = line.split()
+        if line == "" or line is None or len(args) < 1:
+            print("** class name missing **")
+            return
+        if args[0] not in class_val:
+            print("** class doesn't exist **")
+            return
+        if len(args) == 1:
+            print("** instance id missing **")
+            return
+        if len(args) == 2:
+            print("** attribute name missing **")
+            return
+        if len(args) == 3:
+            print("** value missing **")
+            return
+        base = models.storage.all()
+        for key, value in base.items():
+            key_split = key.split('.')
+            val = args[3]
+            if '"' in val:
+                val = val.strip('"')
+            if(key_split[0] == args[0] and key_split[1] == args[1]):
+                setattr(value, args[2], val)
+                models.storage.save()
 
     def do_count(self, arg):
         """contar el numero de instancias de una clase"""

@@ -164,11 +164,11 @@ class HBNBCommand(cmd.Cmd):
         base = models.storage.all()
         for key, value in base.items():
             key_split = key.split('.')
-            value = args[3]
-            if '"' in value:
-                value = value.strip('"')
+            val = args[3]
+            if '"' in val:
+                val = val.strip('"')
             if(key_split[0] == args[0] and key_split[1] == args[1]):
-                setattr(value, args[2], value)
+                setattr(value, args[2], val)
                 models.storage.save()
 
     def do_count(self, arg):
@@ -213,10 +213,8 @@ class HBNBCommand(cmd.Cmd):
                 if len(i) == 2:
                     HBNBCommand.do_update(self, f"{entr[0]} {i[0]}")
                 if len(i) == 3:
-                    entr = entr.replace('"', '')
                     HBNBCommand.do_update(self, f"{entr[0]} {i[0]} {i[1]}")
                 if len(i) == 4:
-                    entr = entr.replace('"', '')
                     HBNBCommand.do_update(self, f"{entr[0]} {i[0]} {i[1]} {i[2]}")
         else:
             pass

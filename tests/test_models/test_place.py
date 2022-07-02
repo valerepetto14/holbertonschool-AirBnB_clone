@@ -30,6 +30,40 @@ class test_Place(unittest.TestCase):
         self.assertTrue(hasattr(obj, "latitude"))
         self.assertTrue(hasattr(obj, "longitude"))
         self.assertTrue(hasattr(obj, "amenity_ids"))
+        self.assertTrue(issubclass(Place, BaseModel))
+
+    def test_values_default(self):
+        """Check valores de atributo default""" 
+        self.assertEqual(Place.name, "")
+        self.assertEqual(Place.user_id, "")
+        self.assertEqual(Place.city_id, "")
+        self.assertEqual(Place.description, "")
+        self.assertEqual(Place.number_rooms, 0)
+        self.assertEqual(Place.number_bathrooms, 0)
+        self.assertEqual(Place.max_guest, 0)
+        self.assertEqual(Place.price_by_night, 0)
+        self.assertEqual(Place.latitude, 0.0)
+        self.assertEqual(Place.longitude, 0.0)
+        self.assertEqual(Place.amenity_ids, [])
+        self.assertTrue(issubclass(Place, BaseModel))
+
+    def test_attr_type(self):
+        """
+        test attribute test
+        """
+        obj = Place()
+        self.assertEqual(type(obj.city_id), str)
+        self.assertEqual(type(obj.user_id), str)
+        self.assertEqual(type(obj.name), str)
+        self.assertEqual(type(obj.description), str)
+        self.assertEqual(type(obj.number_rooms), int)
+        self.assertEqual(type(obj.number_bathrooms), int)
+        self.assertEqual(type(obj.max_guest), int)
+        self.assertEqual(type(obj.price_by_night), int)
+        self.assertEqual(type(obj.latitude), float)
+        self.assertEqual(type(obj.longitude), float)
+        self.assertEqual(type(obj.amenity_ids), list)
+        self.assertTrue(issubclass(Place, BaseModel))
 
     def test_instances_str(self):
         """chequeamos distintas instancias de tipo str"""

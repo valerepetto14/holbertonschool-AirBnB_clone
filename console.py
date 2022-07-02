@@ -110,8 +110,6 @@ class HBNBCommand(cmd.Cmd):
         on the class name, "all" and "all class_name"
         """
         base = models.storage.all()
-        class_val = ["BaseModel", "User", "State", "City", "Amenity",
-                     "Place", "Review"]
         args = line.split()
         if line == "" or line is None or len(args) < 1:
             """
@@ -122,10 +120,10 @@ class HBNBCommand(cmd.Cmd):
                 lista_aux.append(f"{value}")
             print(lista_aux)
             return
-        if args[0] not in class_val:
+        if args[0] not in self.class_val:
             print("** class doesn't exist **")
             return
-        if args[0] in class_val:
+        if args[0] in self.class_val:
             lista_ins = []
             for key, value in base.items():
                 key_split = key.split('.')
@@ -140,10 +138,10 @@ class HBNBCommand(cmd.Cmd):
         update attributes
         """
         """Command used to uptdate attributes from created obejects"""
-        args = line.split()
-        if len(arg) < 1:
+        args = line.split() 
+        if len(args) < 1:
             print("** class name missing **")
-        elif args[0] not in self.clases:
+        elif args[0] not in self.class_val:
             print("** class doesn't exist **")
         elif len(args) == 1:
             print("** instance id missing **")

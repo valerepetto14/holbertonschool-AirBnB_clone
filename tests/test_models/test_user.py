@@ -9,6 +9,7 @@ import json
 from models.base_model import BaseModel
 from models.user import User
 
+
 class test_User(unittest.TestCase):
     """Test to class User"""
     def test_instances(self):
@@ -53,5 +54,6 @@ class test_User(unittest.TestCase):
         cadena = f"[{clase}] ({ide}) {obj.__dict__}"
         self.assertEqual(str(obj), cadena)
 
+
 if __name__ == '__main__':
-  unittest.main()
+    unittest.main()

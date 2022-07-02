@@ -50,8 +50,6 @@ class test_base_model(unittest.TestCase):
         self.assertEqual(type(dic["created_at"]), str)
         self.assertEqual(type(dic["updated_at"]), str)
 
-    
-
     def test_save(self):
         """test save"""
         obj1 = BaseModel()
@@ -87,7 +85,8 @@ class test_base_model(unittest.TestCase):
 
     def test_kwarg(self):
         """test que valida que se llene mediante un diccionario"""
-        dic = {'id': '12', 'created_at': '2017-09-28T21:03:54.052302', 'updated_at': '2017-09-28T21:03:54.052302'}
+        dic = {'id': '12', 'created_at': '2017-09-28T21:03:54.052302',
+               'updated_at': '2017-09-28T21:03:54.052302'}
         obj1 = BaseModel(**dic)
         data1 = '%Y-%m-%dT%H:%M:%S.%f'
         data2 = '2017-09-28T21:03:54.052302'
@@ -120,4 +119,4 @@ class test_base_model(unittest.TestCase):
 
 
 if __name__ == '__main__':
-  unittest.main()
+    unittest.main()

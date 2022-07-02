@@ -15,5 +15,3 @@ class Test_console(unittest.TestCase):
     def test_prompt(self):
         """comprobamos que la cadena del prompt sea correcta"""
         self.assertEqual("(hbnb) ", HBNBCommand.prompt)
-
-    

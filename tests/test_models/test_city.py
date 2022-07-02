@@ -9,17 +9,18 @@ import json
 from models.base_model import BaseModel
 from models.city import City
 
+
 class test_City(unittest.TestCase):
     """test to class City"""
     def test_procedence(self):
-      """chequeamos que sea una subclase de basemodel"""
-      self.assertTrue(issubclass(City, BaseModel))
+        """chequeamos que sea una subclase de basemodel"""
+        self.assertTrue(issubclass(City, BaseModel))
 
     def test_attr_type(self):
-      """chequeamos tipo de atributos"""
-      obj = City()
-      self.assertEqual(type(obj.name), str)
-      self.assertEqual(type(obj.state_id), str)
+        """chequeamos tipo de atributos"""
+        obj = City()
+        self.assertEqual(type(obj.name), str)
+        self.assertEqual(type(obj.state_id), str)
 
     def tests_instances_attr(self):
         """chequeamos attr(type, value), subclass"""
@@ -38,5 +39,6 @@ class test_City(unittest.TestCase):
         obj.save()
         self.assertNotEqual(obj.created_at, obj.updated_at)
 
+
 if __name__ == '__main__':
-  unittest.main()
+    unittest.main()

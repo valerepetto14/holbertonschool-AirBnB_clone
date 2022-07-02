@@ -9,6 +9,7 @@ import json
 from models.base_model import BaseModel
 from models.state import State
 
+
 class test_State():
     """Test State class"""
     def test_procedence(self):
@@ -32,7 +33,7 @@ class test_State():
         """Chequeamos la instancia con y sin argumentos"""
         self.assertIs(State, type(State(name="Naruto")))
         self.assertIs(State, type(State()))
-        
+
     def test_save_updated(self):
         """funcionamiento del updated"""
         obj = State()
@@ -47,4 +48,4 @@ class test_State():
 
 
 if __name__ == '__main__':
-  unittest.main()
+    unittest.main()

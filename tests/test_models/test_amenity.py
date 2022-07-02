@@ -9,6 +9,7 @@ import json
 from models.base_model import BaseModel
 from models.amenity import Amenity
 
+
 class test_amenity(unittest.TestCase):
     def test_procedence(self):
         """chequeamos que sea otra subclase de basemodel"""
@@ -26,7 +27,7 @@ class test_amenity(unittest.TestCase):
         self.assertEqual(obj.name, "")
         obj.name = "Naruto"
         self.assertEqual(obj.name, "Naruto")
-    
+
     def test_instances_attr(self):
         """chequeamos attr(type, value) y confirmamos procedencia"""
         obj = Amenity()
@@ -56,4 +57,4 @@ class test_amenity(unittest.TestCase):
 
 
 if __name__ == '__main__':
-  unittest.main()
+    unittest.main()

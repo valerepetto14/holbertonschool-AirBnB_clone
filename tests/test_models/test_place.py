@@ -9,6 +9,7 @@ import json
 from models.base_model import BaseModel
 from models.place import Place
 
+
 class test_Place(unittest.TestCase):
     """test Place"""
     def test_procedence(self):
@@ -29,7 +30,7 @@ class test_Place(unittest.TestCase):
         self.assertTrue(hasattr(obj, "latitude"))
         self.assertTrue(hasattr(obj, "longitude"))
         self.assertTrue(hasattr(obj, "amenity_ids"))
-    
+
     def test_instances_str(self):
         """chequeamos distintas instancias de tipo str"""
         obj = Place()
@@ -37,7 +38,7 @@ class test_Place(unittest.TestCase):
         obj.user_id = "vale12"
         obj.name = "Naruto"
         obj.description = "muy agradable"
-        
+
         self.assertEqual(type(obj.city_id), str)
         self.assertEqual(type(obj.user_id), str)
         self.assertEqual(type(obj.name), str)
@@ -77,5 +78,6 @@ class test_Place(unittest.TestCase):
 
         self.assertNotEqual(obj1.id, obj2.id)
 
+
 if __name__ == '__main__':
-  unittest.main()
+    unittest.main()

@@ -23,13 +23,6 @@ class test_fileStorage(unittest.TestCase):
         self.assertIsNotNone(FileStorage.save.__doc__)
         self.assertIsNotNone(FileStorage.reload.__doc__)
 
-    def test_is_an_instance(self):
-        """
-        test instantation
-        """
-        test = FileStorage()
-        self.assertIsInstance(test, FileStorage)
-
 
     if __name__ == '__main__':
         unittest.main()

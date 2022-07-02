@@ -206,7 +206,6 @@ class HBNBCommand(cmd.Cmd):
                 aidi = vari[1].split(')')
                 # "id" -> strip -> limpio
                 id_cast = aidi[0].strip('"')
-                print(id_cast)
                 HBNBCommand.do_destroy(self, f"{comando[0]} {id_cast}")
             elif entr[0] in class_val and "update" in entr[1]:
                 f_div = entr[1].split("(")

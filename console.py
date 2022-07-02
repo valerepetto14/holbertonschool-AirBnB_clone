@@ -24,16 +24,23 @@ class HBNBCommand(cmd.Cmd):
                      "Place", "Review"]
     prompt = '(hbnb) '
 
-    def do_quit(self, line):
-        """def exit"""
-        exit()
+    def do_EOF(self, arg):
+        """
+        Exit if EOF happens
+        """
+        print()
+        return True
 
-    def do_EOF(self, line):
-        """def EOF"""
-        exit()
+    def do_quit(self, arg):
+        """
+        Exit if quit command is typed
+        """
+        return True
 
     def emptyline(self):
-        """linea vacia no hacemos nada"""
+        """
+        If empty line --> do nothing.
+        """
         pass
 
     def do_create(self, line):

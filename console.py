@@ -81,32 +81,29 @@ class HBNBCommand(cmd.Cmd):
             if flag == 0:
                 print("** no instance found **")
 
-    def do_destroy(self, line):
-        base = models.storage.all()
-        """mostra dict de un Base model con id pasado"""
-        class_val = ["BaseModel", "User", "State", "City", "Amenity",
-                     "Place", "Review"]
-        flag = 0
-        args = line.split()
-        if line == "" or line is None or len(args) < 1:
+    def do_destroy(self, arg):
+        """
+        Deletes an instance based on the class name and id
+        (save the change into the JSON file).
+        Usage: destroy <class name> <id>
+        """
+        split_arg = arg.split()  # use of split() method to parse "arg"
+
+        if not split_arg:
             print("** class name missing **")
-            return
-        if args[0] not in class_val:
+        elif split_arg[0] not in HBNBCommand.classes_list:
             print("** class doesn't exist **")
-            return
-        if len(args) == 1:
+        elif len(split_arg) == 1:  # if len is 1, is because the id is missing
             print("** instance id missing **")
-            return
-        if os.path.exists('file.json') is True:
-            base_copy = base.copy()
-            for key, value in base_copy.items():
-                key_split = key.split('.')
-                if(key_split[0] == args[0] and key_split[1] == args[1]):
-                    del base[key]
-                    models.storage.save()
-                    flag = 1
-            if flag == 0:
-                    print("** no instance found **")
+        else:
+            key = f"{split_arg[0]}.{split_arg[1]}"  # generate key: class.id
+            # save in variable "aux_dict" result of __objects
+            aux_dict = models.storage.all()
+            if key in aux_dict:
+                aux_dict.pop(key)  # use of pop method to remove the chosen key
+                models.storage.save()  # save changes into the storage in: file.json
+            else:
+                print("** no instance found **")
 
     def do_all(self, line):
         """

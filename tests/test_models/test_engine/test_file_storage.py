@@ -11,10 +11,10 @@ from models.engine.file_storage import FileStorage
 
 class test_fileStorage(unittest.TestCase):
     """Test FileStorage Class"""
-    def test_instances(self):
-        """chequeamos instantation"""
-        obj = FileStorage()
-        self.assertIsInstance(obj, FileStorage)
+    # def test_instances(self):
+    #     """chequeamos instantation"""
+    #     obj = FileStorage()
+    #     self.assertIsInstance(obj, FileStorage)
 
     def test_docs(self):
         """chequeamos documentacion"""

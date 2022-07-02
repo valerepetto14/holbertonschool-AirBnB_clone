@@ -141,7 +141,7 @@ class HBNBCommand(cmd.Cmd):
         """
         """Command used to uptdate attributes from created obejects"""
         args = line.split()
-        if len(args) < 1:
+        if len(arg) < 1:
             print("** class name missing **")
         elif args[0] not in self.clases:
             print("** class doesn't exist **")

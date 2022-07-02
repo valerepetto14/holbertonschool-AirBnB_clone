@@ -132,8 +132,6 @@ class HBNBCommand(cmd.Cmd):
                 if(key_split[0] == args[0]):
                     lista_ins.append(f"{value}")
             print(lista_ins)
-        else:
-            pass
 
     def do_update(self, line):
         """

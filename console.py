@@ -137,27 +137,35 @@ class HBNBCommand(cmd.Cmd):
         """
         update attributes
         """
-        """Command used to uptdate attributes from created obejects"""
-        args = line.split() 
-        if len(args) < 1:
+        flag = 0
+        args = line.split()
+        if line == "" or line is None or len(args) < 1:
             print("** class name missing **")
-        elif args[0] not in self.class_val:
+            return
+        if args[0] not in self.class_val:
             print("** class doesn't exist **")
-        elif len(args) == 1:
+            return
+        if len(args) == 1:
             print("** instance id missing **")
-        else:
-            object = f"{args[0]}.{args[1]}"
-            aux_dictionary = models.storage.all()
-            if object not in aux_dictionary:
-                print("** no instance found **")
-            elif len(args) == 2:
-                print("** attribute name missing **")
-            elif len(args) == 3:
-                print("** value missing **")
-            else:
-                object = aux_dictionary.get(object)
-                setattr(object, args[2], args[3])
+            return
+        if len(args) == 2:
+            print("** attribute name missing **")
+            return
+        if len(args) == 3:
+            print("** value missing **")
+            return
+        base = models.storage.all()
+        for key, value in base.items():
+            key_split = key.split('.')
+            val = args[3]
+            if '"' in val:
+                val = val.strip('"')
+            if(key_split[0] == args[0] and key_split[1] == args[1]):
+                setattr(value, args[2], val)
                 models.storage.save()
+                flag = 1
+            if flag == 0:
+                print("** no instance found **")
 
     def do_count(self, arg):
         """contar el numero de instancias de una clase"""

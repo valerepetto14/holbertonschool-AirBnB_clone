@@ -20,6 +20,8 @@ import os
 
 class HBNBCommand(cmd.Cmd):
     """def class cmd"""
+    class_val = ["BaseModel", "User", "State", "City", "Amenity",
+                     "Place", "Review"]
     prompt = '(hbnb) '
 
     def do_quit(self, line):
@@ -36,21 +38,19 @@ class HBNBCommand(cmd.Cmd):
 
     def do_create(self, line):
         """create a new instance of BaseModel"""
-        class_val = ["BaseModel", "User", "State", "City", "Amenity",
-                     "Place", "Review"]
         args = line.split()
         if line == "" or line is None or len(args) < 1:
             print("** class name missing **")
             return
         clase = args[0]
-        if clase not in class_val:
+        if clase not in self.class_val:
             print("** class doesn't exist **")
             return
         """
         evalua como código una cadena
         si el comando existe lo ejecuto
         """
-        if clase in class_val:
+        if clase in self.class_val:
             obj = eval(clase)()
             """saves it (to the JSON file) and prints the id"""
             obj.save()
@@ -59,14 +59,12 @@ class HBNBCommand(cmd.Cmd):
     def do_show(self, line):
         """mostra dict de un Base model con id pasado"""
         base = models.storage.all()
-        class_val = ["BaseModel", "User", "State", "City", "Amenity",
-                     "Place", "Review"]
         flag = 0
         args = line.split()
         if line == "" or line is None or len(args) < 1:
             print("** class name missing **")
             return
-        if args[0] not in class_val:
+        if args[0] not in self.class_val:
             print("** class doesn't exist **")
             return
         if len(args) == 1:
@@ -81,27 +79,30 @@ class HBNBCommand(cmd.Cmd):
             if flag == 0:
                 print("** no instance found **")
 
-    def do_destroy(self, arg):
-        '''Deletes an instance based on the class name and id'''
-        class_val = ["BaseModel", "User", "State", "City", "Amenity",
-                     "Place", "Review"]
-        args = arg.split()
-        if len(args) == 0:
+    def do_destroy(self, line):
+        base = models.storage.all()
+        """mostra dict de un Base model con id pasado"""
+        flag = 0
+        args = line.split()
+        if line == "" or line is None or len(args) < 1:
             print("** class name missing **")
-            return False
-        if args[0] in class_val:
-            if len(args) > 1:
-                key = f"{args[0]}.{args[1]}"
-                data = models.storage.all()
-                if key in data:
-                    data.pop(key)
-                    models.storage.save()
-                else:
-                    print("** no instance found **")
-            else:
-                print("** instance id missing **")
-        else:
+            return
+        if args[0] not in self.class_val:
             print("** class doesn't exist **")
+            return
+        if len(args) == 1:
+            print("** instance id missing **")
+            return
+        if os.path.exists('file.json') is True:
+            base_copy = base.copy()
+            for key, value in base_copy.items():
+                key_split = key.split('.')
+                if(key_split[0] == args[0] and key_split[1] == args[1]):
+                    del base[key]
+                    models.storage.save()
+                    flag = 1
+            if flag == 0:
+                    print("** no instance found **")
 
     def do_all(self, line):
         """
@@ -168,11 +169,9 @@ class HBNBCommand(cmd.Cmd):
 
     def do_count(self, arg):
         """contar el numero de instancias de una clase"""
-        class_val = ["BaseModel", "User", "State", "City", "Amenity",
-                     "Place", "Review"]
         base = models.storage.all()
         count = 0
-        if arg in class_val:
+        if arg in self.class_val:
             for key, value in base.items():
                 key_split = key.split('.')
                 if key_split[0] == arg:
@@ -181,28 +180,26 @@ class HBNBCommand(cmd.Cmd):
 
     def default(self, line):
         base = models.storage.all()
-        class_val = ["BaseModel", "User", "State", "City", "Amenity",
-                     "Place", "Review"]
         comando = line.split(".")
         entr = comando
         if len(comando) > 1:
             lista_ins = []
-            if comando[0] in class_val and comando[1] == "all()":
+            if comando[0] in self.class_val and comando[1] == "all()":
                 HBNBCommand.do_all(self, comando[0])
-            elif comando[0] in class_val and comando[1] == "count()":
+            elif comando[0] in self.class_val and comando[1] == "count()":
                 HBNBCommand.do_count(self, comando[0])
-            elif comando[0] in class_val and "show" in comando[1]:
+            elif comando[0] in self.class_val and "show" in comando[1]:
                 ide = comando[1].split('(')
                 ide1 = ide[1].split(')')
                 # print(f"{comando[0]}{ide1[0]}")
                 HBNBCommand.do_show(self, f"{comando[0]} {ide1[0]}")
-            elif comando[0] in class_val and "destroy" in comando[1]:
+            elif comando[0] in self.class_val and "destroy" in comando[1]:
                 vari = comando[1].split('(')
                 aidi = vari[1].split(')')
                 # "id" -> strip -> limpio
                 id_cast = aidi[0].strip('"')
                 HBNBCommand.do_destroy(self, f"{comando[0]} {id_cast}")
-            elif entr[0] in class_val and "update" in entr[1]:
+            elif entr[0] in self.class_val and "update" in entr[1]:
                 f_div = entr[1].split("(")
                 # ['update', '"904a6d22-5860-41c2-8f92-4ca9d47562a9",
                 #  "first_name", "santiago")']

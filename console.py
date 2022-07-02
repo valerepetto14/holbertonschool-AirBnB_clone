@@ -163,13 +163,6 @@ class HBNBCommand(cmd.Cmd):
                 if(key_split[0] == args[0] and key_split[1] == args[1]):
                     setattr(value, args[2], args[3])
                     models.storage.save()
-                    # objeto = dir(value)
-                    # if args[2] in objeto:
-                    #     setattr(value,args[2],args[3])
-                    #     models.storage.save()
-                    # else:
-                    #     setattr(value,args[2],args[3])
-                    #     models.storage.save()
 
     def do_count(self, arg):
         """contar el numero de instancias de una clase"""
@@ -186,20 +179,40 @@ class HBNBCommand(cmd.Cmd):
 
     def default(self, line):
         base = models.storage.all()
-        class_val = ["BaseModel", "User", "State", "City", "Amenity"]
+        class_val = ["BaseModel", "User", "State", "City", "Amenity",
+                     "Place", "Review"]
         comando = line.split(".")
-        lista_ins = []
-        if comando[0] in class_val and comando[1] == "all()":
-            HBNBCommand.do_all(self, comando[0])
-        elif comando[0] in class_val and comando[1] == "count()":
-            HBNBCommand.do_count(self, comando[0])
-        elif comando[0] in class_val and "show" in comando[1]:
-            ide = comando[1].split('(')
-            ide1 = ide[1].split(')')
-            print(f"{comando[0]}{ide1[0]}")
-            HBNBCommand.do_show(self, f"{comando[0]} {ide1[0]}")
+        entr = comando
+        if len(comando) > 1:
+            lista_ins = []
+            if comando[0] in class_val and comando[1] == "all()":
+                HBNBCommand.do_all(self, comando[0])
+            elif comando[0] in class_val and comando[1] == "count()":
+                HBNBCommand.do_count(self, comando[0])
+            elif comando[0] in class_val and "show" in comando[1]:
+                ide = comando[1].split('(')
+                ide1 = ide[1].split(')')
+                # print(f"{comando[0]}{ide1[0]}")
+                HBNBCommand.do_show(self, f"{comando[0]} {ide1[0]}")
+            elif comando[0] in class_val and "destroy" in comando[1]:
+                vari = comando[1].split('(')
+                aidi = vari[1].split(')')
+                # print(f"{comando[0]}{aidi[0]}")
+                HBNBCommand.do_destroy(self, f"{comando[0]} {aidi[0]}")
+            elif entr[0] in class_val and "update" in entr[1]:
+                vari = entr[1].split('(')
+                i = vari[1].split(')')
+                print(i)
+                if len(i) == 2:
+                    HBNBCommand.do_update(self, f"{entr[0]} {i[0]}")
+                if len(i) == 3:
+                    entr = entr.replace('"', '')
+                    HBNBCommand.do_update(self, f"{entr[0]} {i[0]} {i[1]}")
+                if len(i) == 4:
+                    entr = entr.replace('"', '')
+                    HBNBCommand.do_update(self, f"{entr[0]} {i[0]} {i[1]} {i[2]}")
         else:
-            print(f"*** Unknown syntax: {line}")
+            pass
 
 
 if __name__ == '__main__':

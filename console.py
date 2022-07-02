@@ -210,7 +210,10 @@ class HBNBCommand(cmd.Cmd):
                 arg2 = comando[1].split("(")[1]
                 arg2 = arg2.split(",")[2]
                 arg2 = arg2.split(")")[0]
-
+                
+                my_class = line[0]
+                arg = my_class + " " + id + " " + arg1 + " " + arg2
+                HBNBCommand.do_update(self, arg)
         else:
             pass
 

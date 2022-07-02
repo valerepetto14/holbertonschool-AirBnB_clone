@@ -212,7 +212,7 @@ class HBNBCommand(cmd.Cmd):
                 arg2 = arg2.split(")")[0]
                 
                 my_class = comando[0]
-                arg = my_class + " " + id + " " + arg1 + " " + arg2
+                arg = my_class + " " + id.strip('""') + " " + arg1.strip('""') + " " + arg2.strip('""')
                 print(arg)
                 HBNBCommand.do_update(self, arg)
         else:

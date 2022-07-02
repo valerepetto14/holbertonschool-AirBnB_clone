@@ -26,8 +26,17 @@ class test_City(unittest.TestCase):
         self.assertTrue('state_id' in City.__dict__)
         self.assertTrue('name' in City.__dict__)
 
+    def test_str(self):
+        """Tests para str"""
+        obj = City()
+        string = f"[City] ({obj.id}) {obj.__dict__}"
+        self.assertEqual(string, str(obj))
 
-
+    def test_save(self):
+        """Chequeamos el save"""
+        obj = City()
+        obj.save()
+        self.assertNotEqual(obj.created_at, obj.updated_at)
 
 if __name__ == '__main__':
   unittest.main()

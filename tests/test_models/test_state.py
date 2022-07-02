@@ -11,6 +11,10 @@ from models.state import State
 
 class test_State():
     """Test State class"""
+    def test_procedence(self):
+        """chequeamos si es una subclase de basemodel"""
+        self.asserTrue(issubclass(State, BaseModel))
+
     def test_attr(self):
         """test existencia atributo"""
         obj = State()

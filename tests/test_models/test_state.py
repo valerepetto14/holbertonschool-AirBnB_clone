@@ -22,12 +22,14 @@ class test_State():
         obj.name = ""
         self.assertTrue(hasattr(obj, "name"))
         self.assertEqual(obj.name, "")
+        self.assertTrue(issubclass(State, BaseModel))     
 
     def test_type_attr(self):
         """test type de atributo"""
         obj = State()
         obj.name = "santi"
         self.assertEqual(type(obj.name), str)
+        self.assertTrue(issubclass(State, BaseModel))
 
     def test_instantiation(self):
         """Chequeamos la instancia con y sin argumentos"""

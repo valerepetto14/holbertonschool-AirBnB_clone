@@ -37,24 +37,18 @@ class HBNBCommand(cmd.Cmd):
         pass
 
     def do_create(self, line):
-        """create a new instance of BaseModel"""
+        '''function that creates a new instance of BM, save it and print it'''
         args = line.split()
-        if line == "" or line is None or len(args) < 1:
+        classname = "BaseModel"
+        if len(args) == 0 or args is None or args == "":
             print("** class name missing **")
-            return
-        clase = args[0]
-        if clase not in self.class_val:
+        if args[0] in self.class_val:
+            new_inst = self.class_val[args[0]]()
+        else:
             print("** class doesn't exist **")
-            return
-        """
-        evalua como código una cadena
-        si el comando existe lo ejecuto
-        """
-        if clase in self.class_val:
-            obj = eval(clase)()
-            """saves it (to the JSON file) and prints the id"""
-            obj.save()
-            print(obj.id)
+            return False
+        print(new_inst.id)
+        new_inst.save()
 
     def do_show(self, line):
         """mostra dict de un Base model con id pasado"""

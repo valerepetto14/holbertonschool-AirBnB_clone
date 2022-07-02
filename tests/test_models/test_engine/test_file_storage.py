@@ -14,10 +14,11 @@ class test_fileStorage(unittest.TestCase):
     def test_instances(self):
         """chequeamos instantation"""
         test = FileStorage()
-        self.assertIsInstance(test, FileStorage)
+        
 
     def test_docs(self):
         """chequeamos documentacion"""
+        self.assertIsInstance(test, FileStorage)
         self.assertIsNotNone(FileStorage.new.__doc__)        
         self.assertIsNotNone(FileStorage.all.__doc__)
         self.assertIsNotNone(FileStorage.save.__doc__)

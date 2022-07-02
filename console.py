@@ -82,6 +82,7 @@ class HBNBCommand(cmd.Cmd):
     def do_destroy(self, line):
         base = models.storage.all()
         """mostra dict de un Base model con id pasado"""
+        flag = 0
         args = line.split()
         if line == "" or line is None or len(args) < 1:
             print("** class name missing **")
@@ -99,7 +100,8 @@ class HBNBCommand(cmd.Cmd):
                 if(key_split[0] == args[0] and key_split[1] == args[1]):
                     base.pop(key)
                     models.storage.save()
-                else:
+                    flag = 1
+            if flag == 0:
                     print("** no instance found **")
 
     def do_all(self, line):

@@ -14,6 +14,10 @@ class test_amenity(unittest.TestCase):
         """chequeamos que sea otra subclase de basemodel"""
         self.assertTrue(issubclass(Amenity, BaseModel))
 
+    def test_no_receive(self):
+        """chequeamos cuando no recibe nada"""
+        self.assertEqual(Amenity, type(Amenity()))
+
     """Casos de prueba para la clase Amenity"""
     def test_attr(self):
         """chequeamos existencia de atributo"""
@@ -43,6 +47,13 @@ class test_amenity(unittest.TestCase):
         obj2 = Amenity()
         self.assertNotEqual(obj1.updated_at, obj2.updated_at)
         self.assertLess(obj1.created_at, obj2.created_at)
+
+    def test_str_amen(self):
+        obj = Amenity()
+        obj.id = "123"
+        obj_str = obj.__str__()
+        self.assertIn("[Amenity] (123)", obj_str)
+
 
 if __name__ == '__main__':
   unittest.main()

@@ -1,121 +1,147 @@
 #!/usr/bin/python3
-"""The console or Command Interpreter"""
-
-import cmd
-import sys
+"""
+programm console
+"""
+from itertools import count
 import models
 from models.base_model import BaseModel
 from models.user import User
-from models.amenity import Amenity
 from models.city import City
-from models.place import Place
-from models.state import State
 from models.review import Review
+from models.state import State
+from models.place import Place
+from models.amenity import Amenity
+# from models.engine.file_storage import FileStorage
+from datetime import datetime
+import json
+import cmd
+import os
 
 
 class HBNBCommand(cmd.Cmd):
-    """Class that we use to generate the console"""
+    """def class cmd"""
+    class_val = ["BaseModel", "User", "State", "City", "Amenity",
+                     "Place", "Review"]
+    prompt = '(hbnb) '
 
-    prompt = "(hbnb) "
-    clases = ["BaseModel", "City", "Amenity",
-              "Place", "Review", "State", "User"]
+    def do_quit(self, line):
+        """def exit"""
+        return True
 
-    def do_quit(self, arg):
-        """Quit command to exit the program"""
-        sys.exit()
-
-    def do_EOF(self, arg):
-        """EOF command to exit the program"""
-        print()
-        sys.exit()
+    def do_EOF(self, line):
+        """def EOF"""
+        return True
 
     def emptyline(self):
-        """Do nothing"""
+        """linea vacia no hacemos nada"""
         pass
 
-    def do_create(self, arg):
-        """Command used to create a new object."""
-        if len(arg) < 1:
+    def do_create(self, line):
+        """create a new instance of BaseModel"""
+        args = line.split()
+        if line == "" or line is None or len(args) < 1:
             print("** class name missing **")
-        else:
-            args = arg.split()[0]
-            if args in self.clases:
-                new_ins = eval(args)()
-                new_ins.save()
-                print(new_ins.id)
-            else:
-                print("** class doesn't exist **")
+            return
+        clase = args[0]
+        if clase not in self.class_val:
+            print("** class doesn't exist **")
+            return
+        """
+        evalua como código una cadena
+        si el comando existe lo ejecuto
+        """
+        if clase in self.class_val:
+            obj = eval(clase)()
+            """saves it (to the JSON file) and prints the id"""
+            obj.save()
+            print(obj.id)
 
-    def do_show(self, arg):
-        """Command used to show the information of an object."""
-        if len(arg) < 1:
+    def do_show(self, line):
+        """mostra dict de un Base model con id pasado"""
+        base = models.storage.all()
+        flag = 0
+        args = line.split()
+        if line == "" or line is None or len(args) < 1:
             print("** class name missing **")
+            return
+        if args[0] not in self.class_val:
+            print("** class doesn't exist **")
+            return
+        if len(args) == 1:
+            print("** instance id missing **")
+            return
         else:
-            args = arg.split()
-            if len(args) == 1:
-                if args[0] not in self.clases:
-                    print("** class doesn't exist **")
-                else:
-                    print("** instance id missing **")
-            else:
-                if args[0] not in self.clases:
-                    print("** class doesn't exist **")
-                else:
-                    object = f"{args[0]}.{args[1]}"
-                    aux_dictionary = models.storage.all()
-                    if object in aux_dictionary:
-                        print(aux_dictionary[object])
-                    else:
-                        print("** no instance found **")
+            for key, value in base.items():
+                key_split = key.split('.')
+                if(key_split[0] == args[0] and key_split[1] == args[1]):
+                    print(value)
+                    flag = 1
+            if flag == 0:
+                print("** no instance found **")
 
-    def do_destroy(self, arg):
-        """Command used to deletes an object."""
-        if len(arg) < 1:
+    def do_destroy(self, line):
+        base = models.storage.all()
+        """mostra dict de un Base model con id pasado"""
+        flag = 0
+        args = line.split()
+        if line == "" or line is None or len(args) < 1:
             print("** class name missing **")
+            return
+        if args[0] not in self.class_val:
+            print("** class doesn't exist **")
+            return
+        if len(args) == 1:
+            print("** instance id missing **")
+            return
         else:
-            args = arg.split()
-            if len(args) == 1:
-                if args[0] not in self.clases:
-                    print("** class doesn't exist **")
-                else:
-                    print("** instance id missing **")
-            else:
-                if args[0] not in self.clases:
-                    print("** class doesn't exist **")
-                else:
-                    object = f"{args[0]}.{args[1]}"
-                    aux_dictionary = models.storage.all()
-                    if object in aux_dictionary:
-                        del aux_dictionary[object]
-                        models.storage.save()
-                    else:
-                        print("** no instance found **")
+            base_copy = base.copy()
+            for key, value in base_copy.items():
+                key_split = key.split('.')
+                if(key_split[0] == args[0] and key_split[1] == args[1]):
+                    base.pop(key)
+                    models.storage.save()
+                    flag = 1
+            if flag == 0:
+                    print("** no instance found **")
 
-    def do_all(self, arg):
-        """Command used to print all created objects."""
-        array = []
-        args = arg.split()
-        if len(arg) >= 1:
-            if args[0] in self.clases:
-                aux_dictionary = models.storage.all()
-                for key, value in aux_dictionary.items():
-                    if key.split(".")[0] == args[0]:
-                        string = str(value)
-                        array.append(string)
-                print(array)
-            else:
-                print("** class doesn't exist **")
+    def do_all(self, line):
+        """
+        Prints all string representation of all instances based or not
+        on the class name, "all" and "all class_name"
+        """
+        base = models.storage.all()
+        class_val = ["BaseModel", "User", "State", "City", "Amenity",
+                     "Place", "Review"]
+        args = line.split()
+        if line == "" or line is None or len(args) < 1:
+            """
+            debe funcionar sin importar si tiene
+            nombre de clase o no"""
+            lista_aux = []
+            for key, value in base.items():
+                lista_aux.append(f"{value}")
+            print(lista_aux)
+            return
+        if args[0] not in class_val:
+            print("** class doesn't exist **")
+            return
+        if args[0] in class_val:
+            lista_ins = []
+            for key, value in base.items():
+                key_split = key.split('.')
+                if(key_split[0] == args[0]):
+                    lista_ins.append(f"{value}")
+            print(lista_ins)
         else:
-            aux_dictionary = models.storage.all()
-            for key, value in aux_dictionary.items():
-                string = str(value)
-                array.append(string)
-            print(array)
+            pass
 
-    def do_update(self, arg):
+    def do_update(self, line):
+        """
+        update attributes
+        """
         """Command used to uptdate attributes from created obejects"""
-        args = arg.split()
-        if len(arg) < 1:
+        args = line.split()
+        if len(args) < 1:
             print("** class name missing **")
         elif args[0] not in self.clases:
             print("** class doesn't exist **")
@@ -136,50 +162,56 @@ class HBNBCommand(cmd.Cmd):
                 models.storage.save()
 
     def do_count(self, arg):
-        """Show the cuantity of an specified instance"""
-        counter = 0
-        if arg in self.clases:
-            for key, objects in models.storage.all().items():
-                if arg in key:
-                    counter += 1
-            print(counter)
+        """contar el numero de instancias de una clase"""
+        base = models.storage.all()
+        count = 0
+        if arg in self.class_val:
+            for key, value in base.items():
+                key_split = key.split('.')
+                if key_split[0] == arg:
+                    count += 1
+            print(count)
+
+    def default(self, line):
+        base = models.storage.all()
+        comando = line.split(".")
+        entr = comando
+        if len(comando) > 1:
+            lista_ins = []
+            if comando[0] in self.class_val and comando[1] == "all()":
+                HBNBCommand.do_all(self, comando[0])
+            elif comando[0] in self.class_val and comando[1] == "count()":
+                HBNBCommand.do_count(self, comando[0])
+            elif comando[0] in self.class_val and "show" in comando[1]:
+                ide = comando[1].split('(')
+                ide1 = ide[1].split(')')
+                # print(f"{comando[0]}{ide1[0]}")
+                HBNBCommand.do_show(self, f"{comando[0]} {ide1[0]}")
+            elif comando[0] in self.class_val and "destroy" in comando[1]:
+                vari = comando[1].split('(')
+                aidi = vari[1].split(')')
+                # "id" -> strip -> limpio
+                id_cast = aidi[0].strip('"')
+                HBNBCommand.do_destroy(self, f"{comando[0]} {id_cast}")
+            elif entr[0] in self.class_val and "update" in entr[1]:
+                f_div = entr[1].split("(")
+                # ['update', '"904a6d22-5860-41c2-8f92-4ca9d47562a9",
+                #  "first_name", "santiago")']
+                coma_div = f_div[1].split(',')
+                # ['"904a6d22-5860-41c2-8f92-4ca9d47562a9"',
+                # ' "first_name"', ' "santiago")']
+                aidi = coma_div[0].strip('"')
+                # ' "first_name"'
+                attr = coma_div[1].strip().strip('"')
+                # "santiago")'
+                arg2 = coma_div[2].split(")")
+                # [' "santiago"', '']
+                val = arg2[0].strip()
+
+                line = f"{entr[0]} {aidi} {attr} {val}"
+                HBNBCommand.do_update(self, line)
         else:
-            print("** class doesn't exist **")
-
-    def default(self, arg):
-        """asd asd asd"""
-        args = arg.split(".")
-        my_class = args[0]
-        command = args[1]
-
-        if command == "all()":
-            HBNBCommand.do_all(self, my_class)
-        elif command == "count()":
-            HBNBCommand.do_count(self, my_class)
-        elif command[0:4] == "show":
-            id = args[1].split("(")[1]
-            id = id.split(")")[0]
-            arg = my_class + " " + id
-            HBNBCommand.do_show(self, arg)
-        elif command[0:7] == "destroy":
-            id = args[1].split("(")[1]
-            id = id.split(")")[0]
-            arg = my_class + " " + id
-            HBNBCommand.do_destroy(self, arg)
-        elif command[0:6] == "update":
-            id = args[1].split("(")[1]
-            id = id.split(",")[0]
-
-            arg1 = args[1].split("(")[1]
-            arg1 = arg1.split(",")[1]
-            arg1 = arg1.split(" ")[1]
-
-            arg2 = args[1].split("(")[1]
-            arg2 = arg2.split(",")[2]
-            arg2 = arg2.split(")")[0]
-
-            arg = my_class + " " + id + " " + arg1 + " " + arg2
-            HBNBCommand.do_update(self, arg)
+            pass
 
 
 if __name__ == '__main__':

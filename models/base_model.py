@@ -19,7 +19,7 @@ class BaseModel:
         if (kwargs is not None and len(kwargs) != 0):
             for key, value in kwargs.items():
                 if key == "__class__":
-                    continue
+                    pass
                 elif key == 'id':
                     self.id = value
                 elif key == 'created_at':
@@ -50,7 +50,7 @@ class BaseModel:
     def to_dict(self):
         """return a dictionary with methods/attr"""
         diccio = self.__dict__.copy()
-        diccio["__class__"] = BaseModel.__name__
+        diccio["__class__"] = self.__class__.__name__
         diccio["updated_at"] = self.updated_at.isoformat()
         diccio["created_at"] = self.updated_at.isoformat()
         return diccio

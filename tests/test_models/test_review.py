@@ -57,6 +57,12 @@ class test_Review(unittest.TestCase):
         self.assertEqual(obj.text, "muy agradable")
         self.assertEqual(obj.user_id, "12df")
 
+    def test_documentation(self):
+        """
+        chequeamos la documentacion
+        """
+        self.assertIsNotNone(Review.__doc__)
+
 
 if __name__ == '__main__':
     unittest.main()

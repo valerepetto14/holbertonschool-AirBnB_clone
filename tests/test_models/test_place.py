@@ -78,6 +78,11 @@ class test_Place(unittest.TestCase):
 
         self.assertNotEqual(obj1.id, obj2.id)
 
+    def test_documentation(self):
+        """
+        chequeamos la documentacion
+        """
+        self.assertIsNotNone(Place.__doc__)    
 
 if __name__ == '__main__':
     unittest.main()

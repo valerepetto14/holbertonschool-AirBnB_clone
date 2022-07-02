@@ -46,6 +46,12 @@ class test_State():
         obj.save()
         self.assertIs(type(obj.to_dict()), dict)
 
+    def test_documentation(self):
+        """
+        chequeamos la documentacion
+        """
+        self.assertIsNotNone(State.__doc__)
+
 
 if __name__ == '__main__':
     unittest.main()

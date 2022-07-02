@@ -11,12 +11,14 @@ from models.base_model import BaseModel
 
 class test_base_model(unittest.TestCase):
     """def class Testbasemodel"""
+
     def test_instancias(self):
         """checkear si se crearon las instancias"""
         obj1 = BaseModel()
         self.assertTrue(hasattr(obj1, "id"))
         self.assertTrue(hasattr(obj1, "created_at"))
         self.assertTrue(hasattr(obj1, "updated_at"))
+        self.assertEqual(type(obj1), BaseModel)
 
     def test_id(self):
         """2 instancias deben tener diferente id"""
@@ -64,6 +66,12 @@ class test_base_model(unittest.TestCase):
         obj.save()
         self.assertLess(obj.created_at, obj.updated_at)
 
+    def test_id_assign(self):
+        """ """
+        obj = BaseModel()
+        self.assertIsInstance(obj.id, str)
+        self.assertEqual(len(obj.id), 36)        
+
     def test_dict(self):
         """comprobar typo del update luego de to_dict()"""
         obj1 = BaseModel()
@@ -78,6 +86,14 @@ class test_base_model(unittest.TestCase):
         self.assertIn("created_at", obj.to_dict())
         self.assertIn("updated_at", obj.to_dict())
 
+    def test_to_dict(self):
+        """
+        test to dict method
+        """
+        obj = BaseModel()
+        dic = obj.to_dict()
+        self.assertIsInstance(dic, dict)
+    
     def test_dict_equal(self):
         """comprobar igualdad de attributos"""
         obj = BaseModel()
@@ -116,6 +132,12 @@ class test_base_model(unittest.TestCase):
         obj = BaseModel()
         obj.name = "naruto"
         self.assertIn("name", obj.to_dict())
+
+    def test_documentation(self):
+        """
+        chequeamos la documentacion
+        """
+        self.assertIsNotNone(BaseModel.__doc__)
 
 
 if __name__ == '__main__':

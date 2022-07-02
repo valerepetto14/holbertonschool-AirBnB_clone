@@ -54,6 +54,11 @@ class test_User(unittest.TestCase):
         cadena = f"[{clase}] ({ide}) {obj.__dict__}"
         self.assertEqual(str(obj), cadena)
 
+    def test_documentation(self):
+        """
+        chequeamos la documentacion
+        """
+        self.assertIsNotNone(User.__doc__)
 
 if __name__ == '__main__':
     unittest.main()

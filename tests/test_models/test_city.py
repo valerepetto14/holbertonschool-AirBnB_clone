@@ -39,6 +39,12 @@ class test_City(unittest.TestCase):
         obj.save()
         self.assertNotEqual(obj.created_at, obj.updated_at)
 
+    def test_documentation(self):
+        """
+        chequeamos la documentacion
+        """
+        self.assertIsNotNone(City.__doc__)
+
 
 if __name__ == '__main__':
     unittest.main()

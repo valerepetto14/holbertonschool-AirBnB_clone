@@ -55,6 +55,12 @@ class test_amenity(unittest.TestCase):
         obj_str = obj.__str__()
         self.assertIn("[Amenity] (123)", obj_str)
 
+    def test_documentation(self):
+        """
+        chequeamos la documentacion
+        """
+        self.assertIsNotNone(Amenity.__doc__)    
+
 
 if __name__ == '__main__':
     unittest.main()

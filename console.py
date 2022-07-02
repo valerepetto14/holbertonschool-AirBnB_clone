@@ -207,15 +207,22 @@ class HBNBCommand(cmd.Cmd):
                 # print(f"{comando[0]}{aidi[0]}")
                 HBNBCommand.do_destroy(self, f"{comando[0]} {aidi[0]}")
             elif entr[0] in class_val and "update" in entr[1]:
-                vari = entr[1].split('(')
-                i = vari[1].split(')')
-                print(i)
-                if len(i) == 2:
-                    HBNBCommand.do_update(self, f"{entr[0]} {i[0]}")
-                if len(i) == 3:
-                    HBNBCommand.do_update(self, f"{entr[0]} {i[0]} {i[1]}")
-                if len(i) == 4:
-                    HBNBCommand.do_update(self, f"{entr[0]} {i[0]} {i[1]} {i[2]}")
+                f_div = entr[1].split("(")
+                # ['update', '"904a6d22-5860-41c2-8f92-4ca9d47562a9",
+                #  "first_name", "santiago")']
+                coma_div = f_div[1].split(',')
+                # ['"904a6d22-5860-41c2-8f92-4ca9d47562a9"',
+                # ' "first_name"', ' "santiago")']
+                aidi = coma_div[0].strip('"')
+                # ' "first_name"'
+                attr = coma_div[1].strip().strip('"')
+                # "santiago")'
+                arg2 = coma_div[2].split(")")
+                # [' "santiago"', '']
+                val = arg2[0].strip()
+
+                line = f"{entr[0]} {aidi} {attr} {val}"
+                HBNBCommand.do_update(self, line)
         else:
             pass
 

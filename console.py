@@ -57,23 +57,27 @@ class HBNBCommand(cmd.Cmd):
             print(obj.id)
 
     def do_show(self, line):
-        '''print str repr of an inst based on the clss name and id'''
+        """mostra dict de un Base model con id pasado"""
+        base = models.storage.all()
+        flag = 0
         args = line.split()
-        if len(args) == 0:
+        if line == "" or line is None or len(args) < 1:
             print("** class name missing **")
-            return False
-        if args[0] in self.class_val:
-            if len(args) > 1:
-                key = f"{args[0]}.{args[1]}"
-                data = models.storage.all()
-                if key in data:
-                    print(data[key])
-                else:
-                    print("** no instance found **")
-            else:
-                print("** instance id missing **")
-        else:
+            return
+        if args[0] not in self.class_val:
             print("** class doesn't exist **")
+            return
+        if len(args) == 1:
+            print("** instance id missing **")
+            return
+        else:
+            for key, value in base.items():
+                key_split = key.split('.')
+                if(key_split[0] == args[0] and key_split[1] == args[1]):
+                    print(value)
+                    flag = 1
+            if flag == 0:
+                print("** no instance found **")
 
     def do_destroy(self, line):
         base = models.storage.all()
@@ -100,36 +104,23 @@ class HBNBCommand(cmd.Cmd):
             if flag == 0:
                     print("** no instance found **")
 
-    def do_all(self, line):
-        """
-        Prints all string representation of all instances based or not
-        on the class name, "all" and "all class_name"
-        """
-        base = models.storage.all()
-        class_val = ["BaseModel", "User", "State", "City", "Amenity",
-                     "Place", "Review"]
-        args = line.split()
-        if line == "" or line is None or len(args) < 1:
-            """
-            debe funcionar sin importar si tiene
-            nombre de clase o no"""
-            lista_aux = []
-            for key, value in base.items():
-                lista_aux.append(f"{value}")
-            print(lista_aux)
-            return
-        if args[0] not in class_val:
-            print("** class doesn't exist **")
-            return
-        if args[0] in class_val:
-            lista_ins = []
-            for key, value in base.items():
-                key_split = key.split('.')
-                if(key_split[0] == args[0]):
-                    lista_ins.append(f"{value}")
-            print(lista_ins)
+    def do_all(self, arg):
+        '''function that returns a str repr of all instances'''
+        args = arg.split()
+        data = models.storage.all()
+        data_instances = []
+
+        if len(args) == 0:
+            for key, value in data.items():
+                data_instances.append(str(value))
+            print(data_instances)
+        elif args[0] not in self.class_val and len(args) == 1:
+            print(" class doesn't exist ")
         else:
-            pass
+            for key, value in data.items():
+                if args[0] in key:
+                    data_instances.append(str(value))
+            print(data_instances)
 
     def do_update(self, line):
         """

@@ -214,7 +214,7 @@ update.User(49faff9a-6318-451f-87b6-910505c55907, first_name, "Naruto")
 
 ## run unittest
 
-````
+````c
 python3 -m unittest discover tests
 
 
@@ -224,8 +224,8 @@ python3 -m unittest discover tests
 Ran 61 tests in 0.531s
 
 OK
+````
 
-````c
 
 ## test the console capturing the output
 

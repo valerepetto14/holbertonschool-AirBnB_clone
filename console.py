@@ -142,30 +142,32 @@ class HBNBCommand(cmd.Cmd):
         if line == "" or line is None or len(args) < 1:
             print("** class name missing **")
             return
-        if args[0] not in self.class_val:
+        elif args[0] not in self.class_val:
             print("** class doesn't exist **")
             return
-        if len(args) == 1:
+        elif len(args) == 1:
             print("** instance id missing **")
             return
-        if len(args) == 2:
+        elif len(args) == 2:
             print("** attribute name missing **")
             return
-        if len(args) == 3:
+        elif len(args) == 3:
             print("** value missing **")
             return
-        base = models.storage.all()
-        for key, value in base.items():
-            key_split = key.split('.')
-            val = args[3]
-            if '"' in val:
-                val = val.strip('"')
-            if (key_split[0] not in self.class_val):
+        else:
+            base = models.storage.all()
+            idkey = f"{args[0]}.{args[1]}"
+            if idkey not in base:
                 print("** no instance found **")
-                return
-            if (key_split[0] == args[0] and key_split[1] == args[1]):
-                setattr(value, args[2], val)
-                models.storage.save()
+            else:  
+                for key, value in base.items():
+                    key_split = key.split('.')
+                    val = args[3]
+                    if '"' in val:
+                        val = val.strip('"')
+                    if (idkey == key):
+                        setattr(value, args[2], val)
+                        models.storage.save()
 
     def do_count(self, arg):
         """contar el numero de instancias de una clase"""

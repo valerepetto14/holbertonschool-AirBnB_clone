@@ -210,6 +210,30 @@ update.User(49faff9a-6318-451f-87b6-910505c55907, first_name, "Naruto")
 ````
 
 
+# Unittest for classes and console
+
+## run unittest
+
+````
+python3 -m unittest discover tests
+
+
+=============Output================
+.............................................................
+----------------------------------------------------------------------
+Ran 61 tests in 0.531s
+
+OK
+
+````c
+
+## test the console capturing the output
+
+````
+with patch('sys.stdout', new=StringIO()) as f:
+    HBNBCommand().onecmd("help show")
+````c
+
 # Authors contact
 
 [Valentin Repetto - linkedin](https://www.linkedin.com/in/valentin-repetto-6aa6711a0/) <br>

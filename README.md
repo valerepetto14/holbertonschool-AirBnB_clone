@@ -123,7 +123,7 @@ python3 -m unittest discover tests"
 ````c
 (hbnb) create <[class]>
 
-######salida######
+========================Output======================================
 
 (hbnb) create User
 38f22813-2753-4d42-b37c-57a17f1e4f88
@@ -132,12 +132,12 @@ python3 -m unittest discover tests"
 
 ## 2 - all
 
-### Uso 1
+### Usage 1
 ````c
 all <class>
 ````
 
-### Uso 2
+### Usage 2
 
 ````
 <nombre de clase>.all()
@@ -153,13 +153,62 @@ all <class>
 ````
 
 ## 3 Show a class instances
+muestra una instancia especifica
+
 
 ````c
+================ Usage 1 ==============
 (hbnb) show City 07062be7-fd57-4791-88a6-6a78806398c9
+
+================ Usage 2 ==============
+
+City.show(07062be7-fd57-4791-88a6-6a78806398c9)
+
+========================Output======================================
 [City] (07062be7-fd57-4791-88a6-6a78806398c9) {'id': '07062be7-fd57-4791-88a6-6a78806398c9', 'created_at': datetime.datetime(2022, 7, 1, 16, 6, 54, 356353), 'updated_at': datetime.datetime(2022, 7, 1, 16, 6, 54, 356365)}
 (hbnb) 
 
 ````
+
+## 4 Destroy a instance of the storage( file.json )
+
+````c
+
+==================== Usage 1 ==================
+destroy User 38f22813-2753-4d42-b37c-57a17f1e4f88
+
+==================== Usage 2 ===================
+destroy.User("38f22813-2753-4d42-b37c-57a17f1e4f88")
+
+========================Output======================================
+
+(hbnb) User.all()
+["[User] (1aa89e6c-d6f0-4be5-96e8-05636eb60122) {'id': '1aa89e6c-d6f0-4be5-96e8-05636eb60122', 'created_at': datetime.datetime(2022, 7, 2, 23, 4, 16, 460854), 'updated_at': datetime.datetime(2022, 7, 2, 23, 4, 16, 460854), 'first_name': 'John', 'age': '89'}"]
+(hbnb) 
+
+````
+
+## 5 Update attribute, of instance to the storage
+
+````c
+
+(hbnb) User.all()
+
+["[User] (1aa89e6c-d6f0-4be5-96e8-05636eb60122) {'id': '1aa89e6c-d6f0-4be5-96e8-05636eb60122', 'created_at': datetime.datetime(2022, 7, 2, 23, 4, 16, 460854), 'updated_at': datetime.datetime(2022, 7, 2, 23, 4, 16, 460854), 'first_name': 'John', 'age': '89'}"]
+(hbnb)
+
+================= Usage 1 ======================
+update User 49faff9a-6318-451f-87b6-910505c55907 first_name "Naruto"
+
+================= Usage 2 =======================
+update.User(49faff9a-6318-451f-87b6-910505c55907, first_name, "Naruto")
+
+========================Output======================================
+["[User] (1aa89e6c-d6f0-4be5-96e8-05636eb60122) {'id': '1aa89e6c-d6f0-4be5-96e8-05636eb60122', 'created_at': datetime.datetime(2022, 7, 2, 23, 4, 16, 460854), 'updated_at': datetime.datetime(2022, 7, 2, 23, 4, 16, 460854), 'first_name': 'Naruto', 'age': '89'}"]
+(hbnb)
+
+````
+
 
 # Authors contact
 

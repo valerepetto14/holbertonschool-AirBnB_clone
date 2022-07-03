@@ -202,22 +202,37 @@ class HBNBCommand(cmd.Cmd):
                 id_cast = aidi[0].strip('"')
                 HBNBCommand.do_destroy(self, f"{comando[0]} {id_cast}")
             elif entr[0] in self.class_val and "update" in entr[1]:
-                f_div = entr[1].split("(")
-                # ['update', '"904a6d22-5860-41c2-8f92-4ca9d47562a9",
-                #  "first_name", "santiago")']
-                coma_div = f_div[1].split(',')
-                # ['"904a6d22-5860-41c2-8f92-4ca9d47562a9"',
-                # ' "first_name"', ' "santiago")']
-                aidi = coma_div[0].strip('"')
-                # ' "first_name"'
-                attr = coma_div[1].strip().strip('"')
-                # "santiago")'
-                arg2 = coma_div[2].split(")")
-                # [' "santiago"', '']
-                val = arg2[0].strip()
+                if "{" in comando[1]:
+                    ide = comando[1].split("(")[1].split(',')[0].replace('"', "")
+                    dic = comando[1].split('(')[1].split('{')[1].split('}')[0].split(',')
+                    for i in dic:
+                        valores = i.split(':')
+                        attr = valores[0].replace('"', "").replace("'", "").replace(" ", "")
+                        value = valores[1].replace('"', "").replace("'", "").replace(" ", "")
+                        clase = entr[0].strip("''")
+                        print(attr)
+                        print(value)
+                        print(entr[0])
+                        print(ide)
+                        line = f"{clase} {ide} {attr} {value}"
+                        HBNBCommand.do_update(self, line)
+                else:
+                    f_div = entr[1].split("(")
+                    # ['update', '"904a6d22-5860-41c2-8f92-4ca9d47562a9",
+                    #  "first_name", "santiago")']
+                    coma_div = f_div[1].split(',')
+                    # ['"904a6d22-5860-41c2-8f92-4ca9d47562a9"',
+                    # ' "first_name"', ' "santiago")']
+                    aidi = coma_div[0].strip('"')
+                    # ' "first_name"'
+                    attr = coma_div[1].strip().strip('"')
+                    # "santiago")'
+                    arg2 = coma_div[2].split(")")
+                    # [' "santiago"', '']
+                    val = arg2[0].strip()
 
-                line = f"{entr[0]} {aidi} {attr} {val}"
-                HBNBCommand.do_update(self, line)
+                    line = f"{entr[0]} {aidi} {attr} {val}"
+                    HBNBCommand.do_update(self, line)
         else:
             pass
 

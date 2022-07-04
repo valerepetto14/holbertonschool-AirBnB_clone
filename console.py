@@ -21,7 +21,7 @@ import os
 class HBNBCommand(cmd.Cmd):
     """def class cmd"""
     class_val = ["BaseModel", "User", "State", "City", "Amenity",
-                     "Place", "Review"]
+                 "Place", "Review"]
     prompt = '(hbnb) '
 
     def do_quit(self, line):
@@ -102,7 +102,7 @@ class HBNBCommand(cmd.Cmd):
                     models.storage.save()
                     flag = 1
             if flag == 0:
-                    print("** no instance found **")
+                print("** no instance found **")
 
     def do_all(self, line):
         """
@@ -159,7 +159,7 @@ class HBNBCommand(cmd.Cmd):
             idkey = f"{args[0]}.{args[1]}"
             if idkey not in base:
                 print("** no instance found **")
-            else:  
+            else:
                 for key, value in base.items():
                     key_split = key.split('.')
                     val = args[3]
@@ -203,12 +203,15 @@ class HBNBCommand(cmd.Cmd):
                 HBNBCommand.do_destroy(self, f"{comando[0]} {id_cast}")
             elif entr[0] in self.class_val and "update" in entr[1]:
                 if "{" in comando[1]:
-                    ide = comando[1].split("(")[1].split(',')[0].replace('"', "")
-                    dic = comando[1].split('(')[1].split('{')[1].split('}')[0].split(',')
-                    for i in dic:
+                    ide = entr[1].split("(")[1].split(',')[0].replace('"', "")
+                    d = entr[1]
+                    d = d.split('(')[1].split('{')[1].split('}')[0].split(',')
+                    for i in d:
                         valores = i.split(':')
-                        attr = valores[0].replace('"', "").replace("'", "").replace(" ", "")
-                        value = valores[1].replace('"', "").replace("'", "").replace(" ", "")
+                        attr = valores[0].replace('"', "").replace("'", "")
+                        attr = attr.replace(" ", "")
+                        value = valores[1].replace('"', "").replace("'", "")
+                        value = value.replace(" ", "")
                         clase = entr[0].strip("''")
                         print(attr)
                         print(value)

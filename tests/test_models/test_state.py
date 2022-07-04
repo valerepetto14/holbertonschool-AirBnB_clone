@@ -24,6 +24,12 @@ class test_State():
         self.assertEqual(obj.name, "")
         self.assertTrue(issubclass(State, BaseModel))     
 
+    def test_type_none(self):
+        """que pasa cuando se quiere setear en null"""
+        obj = State()
+        obj.name = None
+        self.assertEqual(obj.name, None)
+
     def test_type_attr(self):
         """test type de atributo"""
         obj = State()

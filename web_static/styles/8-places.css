@@ -1,0 +1,67 @@
+article {
+    width: 390px;
+    height: 100%;
+    padding: 20px;
+    margin: 20px;
+    border: 1px solid #ff5a5f;
+    border-radius: 4px;
+    line-height: 5px;
+    text-align: center;
+    align-items: center;
+    align-content: center;
+  }
+  /* anteriorrr */
+  
+  /* Precio por noche*/
+  .price_by_night {
+    color: #ff5a5f;
+    border: 4px solid #ff5a5f;
+    border-radius: 50%;
+    width: 60px;
+    height: 60px;
+    display: flex;
+    justify-content: center;
+    text-align: center;
+    align-items: center;
+  }
+  
+  /* Seccion de información */
+  .information {
+    display: flex;
+    height: 80px;
+    border-top: 1px solid #dddddd;
+    border-bottom: 1px solid #dddddd;
+    /* ALINEAR EL CONTENIDO VERTICALMENTE */
+    text-align: center;
+  }
+  
+  /* Numero de invitados */
+  .max_guest {
+    width: 100px;
+    background-image: url(/images/icon_group.png);
+    background-repeat: no-repeat;
+    background-size: cover;
+    width: 50px;
+    height: 50px;
+  }
+  
+  /*Número de cuartos */
+  .number_rooms {
+    width: 100px;
+    background-image: url(/images/icon_bed.png);
+    background-repeat: no-repeat;
+    background-size: cover;
+    width: 50px;
+    height: 50px;
+  }
+  
+  /* Número de baños */
+  .number_bathrooms {
+    width: 100px;
+    background-image: url(/images/icon_bath.png);
+    background-repeat: no-repeat;
+    background-size: cover;
+    width: 50px;
+    height: 50px;
+  }
+  

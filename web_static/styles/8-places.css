@@ -9,6 +9,7 @@ footer {
     position: relative;
     font-size: 30px;
     margin-bottom: 5px;
+    z-index: -2;
   }
   
   /* Tarjeta de cada articulo */
@@ -21,6 +22,7 @@ footer {
     border: 1px solid #ff5a5f;
     border-radius: 4px;
     float: left;
+    z-index: -2;
   }
   
   /* Tarjeta independiente bottom */

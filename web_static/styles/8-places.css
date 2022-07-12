@@ -1,0 +1,73 @@
+.price_by_night{
+    font-size: 30px;
+    color:#FF5A5F;
+    border: #FF5A5F 4px solid;
+    border-radius: 100%;
+    width: 60px;
+    min-width: 60px;
+    height: 60px;
+    line-height: 60px;
+    position: relative;
+    left: 310px;
+    bottom: 50px;
+}
+
+.information{
+    margin-top: -20px;
+    margin-bottom: 20px;
+    padding: 20px;
+    height: 200px;
+    border-top: #DDDDDD 1px solid;
+    display: flex;
+    justify-content:space-around;
+}
+
+
+.max_guest{
+    font-size: 15px;
+    width: 70px;
+    height: 100px;
+    background-size:contain;
+    background-repeat: no-repeat;
+    background-image: url(https://s3.amazonaws.com/intranet-projects-files/holbertonschool-higher-level_programming+/268/icon_group.png);
+    line-height: 150px;
+    margin-right: 50px;
+}
+
+.number_rooms{
+    font-size: 15px;
+    width: 70px;
+    height: 100px;
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-image: url(/img/icon_bed.png);
+    line-height: 150px;
+    margin-right: 50px;
+}
+
+.number_bathrooms{
+    font-size: 15px;
+    width: 70px;
+    height: 100px;
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-image: url(/img/icon_bath.png);
+    line-height: 150px;
+} 
+
+.user{
+    padding: 20px;
+    width: 100%;
+    font-size: 16px;
+    position: relative;
+    right: 140px;
+}
+
+.description{
+    margin-left: 26px;
+    font-size: 16px;
+    position: relative;
+    right: 50px;
+    line-height: 20px;
+    text-align: left;
+}

@@ -1,0 +1,9 @@
+.amenitiess{
+    position: relative;
+    right: 145px;
+    font-size: 14px;
+}
+.amenities h2{
+    margin-right: 100px;
+    border-bottom:#DDDDDD 1px solid;
+}

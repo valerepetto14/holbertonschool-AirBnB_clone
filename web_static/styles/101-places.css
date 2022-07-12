@@ -8,3 +8,9 @@ article {
   align-content: flex-start;
   flex-direction: column;
 }
+
+.amenities .amty-contain {
+  display: flex;
+  text-align: center;
+  align-items: center;
+}

@@ -1,73 +1,10 @@
-/* REACOMODO DEL FOOTER */
-footer {
-    bottom: -1100px;
-  }
-  
-  /* CAJA DE COMODIDADES */
-  .places .amenities {
-    margin-top: 40px;
-    width: 100%;
-  }
-  
-  /* TITULO DE SECCION REVIEW */
-  .places .reviews #title-amty {
-    width: 100%;
-    /* margin-top: 20px; */
-    padding-top: 40px;
-  }
-  
-  /* TITULO DE SECCIÓN COMODIDADES */
-  #title-amty {
-    font-size: 16px;
-    border-bottom: 1px solid #dddddd;
-    text-align: start;
-  }
-  
-  /* LISTADO DE COMODIDADES */
-  .places .amenities ul {
-    list-style: none;
-  }
-  
-  /* ICONO 1 */
-  .places .amenities ul div .ico-1 {
-    width: 30px;
-    height: 30px;
-    background-repeat: no-repeat;
-    background-position: center;
-    background-size: cover;
-    background-image: url(https://s3.amazonaws.com/intranet-projects-files/holbertonschool-higher-level_programming+/268/icon_wifi.png);
-  }
-  
-  /* ICONO 2 */
-  .places .amenities ul div .ico-2 {
-    width: 30px;
-    height: 30px;
-    background-repeat: no-repeat;
-    background-position: center;
-    background-size: cover;
-    background-image: url(https://s3.amazonaws.com/intranet-projects-files/holbertonschool-higher-level_programming+/268/icon_tv.png);
-  }
-  
-  /* ICONO 3 */
-  .places .amenities ul div .ico-3 {
-    width: 30px;
-    height: 30px;
-    background-repeat: no-repeat;
-    background-position: center;
-    background-size: cover;
-    background-image: url(https://s3.amazonaws.com/intranet-projects-files/holbertonschool-higher-level_programming+/268/icon_pets.png);
-  }
-  /* contenedor [img , amenity]  */
-  .amenities .amty-contain {
-    display: flex;
-    text-align: center;
-    align-items: center;
-  }
-  
-  /* Caja de SUITE IN PLACES */
-  article.suite_article {
-    position: relative;
-    left: -230px;
-    top: 120px;
-  }
-  
+/* MEJORAS CON FLEXBOX DE LA SECCION PLACES */
+article {
+  display: flex;
+  flex-wrap: nowrap;
+  /* height: 100px; */
+  flex: wrap;
+  justify-content: flex-start;
+  align-content: flex-start;
+  flex-direction: column;
+}
